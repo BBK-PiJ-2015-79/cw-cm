@@ -19,4 +19,9 @@ public class MeetingTest {
 	public void testFutureMeetingConsThrowsNPEOnSecondParam() {
 		testMeeting = new FutureMeetingImpl(1, null, new TreeSet<Contact>());
 	}
+
+	@Test(expected = NullPointerException.class)
+	public void testFutureMeetingConsThrowsNPEOnThirdParam() {
+		testMeeting = new FutureMeetingImpl(1, new GregorianCalendar(), null);
+	}
 }
