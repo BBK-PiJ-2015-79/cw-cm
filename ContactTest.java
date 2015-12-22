@@ -11,6 +11,6 @@ public class ContactTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testTwoArgConsThrowsIAEOnFirstArg() {
-		testContact = new ContactImpl();
+		testContact = new ContactImpl(0, "Testy Testerson");
 	}
 }

@@ -6,6 +6,15 @@
 * may want to save about them.
 */
 public class ContactImpl implements Contact {
+	public ContactImpl(int id, String name) {
+		// two argument constructor, empty for now
+		if(id < 1) {
+			throw new IllegalArgumentException();
+		}
+	}
+	public ContactImpl(int id, String name, String notes) {
+		// two argument constructor, empty for now
+	}
 	/**
 	* Returns the ID of the contact.
 	*
