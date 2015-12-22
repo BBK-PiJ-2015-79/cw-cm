@@ -13,4 +13,9 @@ public class ContactTest {
 	public void testTwoArgConsThrowsIAEOnFirstArg() {
 		testContact = new ContactImpl(0, "Testy Testerson");
 	}
+
+	@Test(expected = NullPointerException.class)
+	public void testTwoArgConsThrowsNPEOnSecondArg() {
+		testContact = new ContactImpl(1, null);
+	}
 }

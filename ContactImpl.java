@@ -11,6 +11,9 @@ public class ContactImpl implements Contact {
 		if(id < 1) {
 			throw new IllegalArgumentException();
 		}
+		if(name == null) {
+			throw new NullPointerException();
+		}
 	}
 	public ContactImpl(int id, String name, String notes) {
 		// two argument constructor, empty for now
