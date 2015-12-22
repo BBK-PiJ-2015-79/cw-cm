@@ -47,6 +47,12 @@ public class ContactTest {
 	}
 
 	@Test
+	public void testGetNotesReturnsEmptyStringAfterConstructionWithTwoArgs() {
+		testContact = new ContactImpl(543, "ArthurTest");
+		assertEquals("", testContact.getNotes());
+	}
+
+	@Test
 	public void testIdSetCorrectlyWithThreeArgCons() {
 		testContact = new ContactImpl(543, "Arthur Test", "Some notes");
 		assertEquals(543, testContact.getId());

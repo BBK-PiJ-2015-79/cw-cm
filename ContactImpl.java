@@ -1,4 +1,6 @@
 /**
+* A class implementing the Contact interface.
+*
 * A contact is a person we are making business with or may do in the future.
 *
 * Contacts have an ID (unique, a non-zero positive integer),
@@ -9,12 +11,28 @@ public class ContactImpl implements Contact {
 	private int id;
 	private String name;
 	private String contactNotes;
-
+	/**
+	 * Two parameter constructor for objects of type ContactImpl. Constructs an object of type
+	 * ContactImpl with an empty string as the contact notes.
+	 *
+	 * @param id the id of the contact
+	 * @param name of the contact
+	 * @throws IllegalArgumentException if the id passed as a parameter is zero or less than zero
+	 * @throws NullPointerException if the name passed as a parameter is null
+	 */
 	public ContactImpl(int id, String name) {
 		this(id, name, "");
 	}
+	/**
+	 * Three parameter constructor for objects of type ContactImpl. Constructs an object of type
+	 * ContactImpl with an initial note specified.
+	 *
+	 * @param id the id of the contact
+	 * @param name of the contact
+	 * @throws IllegalArgumentException if the id passed as a parameter is zero or less than zero
+	 * @throws NullPointerException if the name passed as a parameter is null
+	 */
 	public ContactImpl(int id, String name, String contactNotes) {
-		// three argument constructor, empty for now
 		if(id < 1) {
 			throw new IllegalArgumentException();
 		}
