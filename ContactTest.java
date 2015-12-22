@@ -39,4 +39,10 @@ public class ContactTest {
 		testContact = new ContactImpl(543, "Arthur Test");
 		assertEquals(543, testContact.getId());
 	}
+
+	@Test
+	public void testNameSetCorrectlyWithTwoArgCons() {
+		testContact = new ContactImpl(543, "Arthur Test");
+		assertEquals(543, testContact.getName());
+	}
 }
