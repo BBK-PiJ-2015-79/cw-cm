@@ -6,6 +6,8 @@
 * may want to save about them.
 */
 public class ContactImpl implements Contact {
+	private int id;
+
 	public ContactImpl(int id, String name) {
 		this(id, name, "");
 	}
@@ -17,6 +19,7 @@ public class ContactImpl implements Contact {
 		if(name == null || notes == null) {
 			throw new NullPointerException();
 		}
+		this.id = id;
 	}
 	/**
 	* Returns the ID of the contact.
@@ -24,7 +27,7 @@ public class ContactImpl implements Contact {
 	* @return the ID of the contact.
 	*/
 	public int getId() {
-		return -1;
+		return id;
 	}
 	/**
 	* Returns the name of the contact.

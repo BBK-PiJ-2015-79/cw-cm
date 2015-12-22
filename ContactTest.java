@@ -33,4 +33,10 @@ public class ContactTest {
 	public void testThreeArgConsThrowsNPEOnThirdArg() {
 		testContact = new ContactImpl(1, "Testy Testerson", null);
 	}
+
+	@Test
+	public void testIdSetCorrectlyWithTwoArgCons() {
+		testContact = new ContactImpl(543, "Arthur Test");
+		assertEquals(543, testContact.getId());
+	}
 }
