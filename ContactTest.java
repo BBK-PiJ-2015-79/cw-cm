@@ -18,4 +18,19 @@ public class ContactTest {
 	public void testTwoArgConsThrowsNPEOnSecondArg() {
 		testContact = new ContactImpl(1, null);
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testThreeArgConsThrowsIAEOnFirstArg() {
+		testContact = new ContactImpl(0, "Testy Testerson", "Some notes");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testThreeArgConsThrowsNPEOnSecondArg() {
+		testContact = new ContactImpl(1, null, "Some notes");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testThreeArgConsThrowsNPEOnThirdArg() {
+		testContact = new ContactImpl(1, "Testy Testerson", null);
+	}
 }
