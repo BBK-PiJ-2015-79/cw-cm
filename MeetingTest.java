@@ -7,6 +7,6 @@ public class MeetingTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testMeetingThrowsIAEOnFirstParam() {
-		testMeeting = new FutureMeetingImpl(0, new GregorianCalendar(), new TreeSet());
+		testMeeting = new FutureMeetingImpl(0, new GregorianCalendar(), new TreeSet<Contact>());
 	}
 }

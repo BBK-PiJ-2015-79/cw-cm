@@ -6,6 +6,9 @@ import java.util.Set;
 * Meetings have unique IDs, scheduled date and a list of participating contacts
 */
 public abstract class MeetingImpl implements Meeting {
+	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
+		//placeholder for testing
+	}
 	/**
 	* Returns the id of the meeting.
 	*
