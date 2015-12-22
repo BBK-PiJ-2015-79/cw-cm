@@ -7,13 +7,7 @@
 */
 public class ContactImpl implements Contact {
 	public ContactImpl(int id, String name) {
-		// two argument constructor, empty for now
-		if(id < 1) {
-			throw new IllegalArgumentException();
-		}
-		if(name == null) {
-			throw new NullPointerException();
-		}
+		this(id, name, "");
 	}
 	public ContactImpl(int id, String name, String notes) {
 		// three argument constructor, empty for now
