@@ -11,7 +11,7 @@ public abstract class MeetingImpl implements Meeting {
 		if(id < 1) {
 			throw new IllegalArgumentException();
 		}
-		if(date == null) {
+		if(date == null || contacts == null) {
 			throw new NullPointerException();
 		}
 	}
