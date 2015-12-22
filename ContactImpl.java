@@ -8,22 +8,22 @@
 public class ContactImpl implements Contact {
 	private int id;
 	private String name;
-	private String notes;
+	private String contactNotes;
 
 	public ContactImpl(int id, String name) {
 		this(id, name, "");
 	}
-	public ContactImpl(int id, String name, String notes) {
+	public ContactImpl(int id, String name, String contactNotes) {
 		// three argument constructor, empty for now
 		if(id < 1) {
 			throw new IllegalArgumentException();
 		}
-		if(name == null || notes == null) {
+		if(name == null || contactNotes == null) {
 			throw new NullPointerException();
 		}
 		this.id = id;
 		this.name = name;
-		this.notes = notes;
+		this.contactNotes = contactNotes;
 	}
 	/**
 	* Returns the ID of the contact.
@@ -50,7 +50,7 @@ public class ContactImpl implements Contact {
 	* @return a string with notes about the contact, maybe empty.
 	*/
 	public String getNotes() {
-		return notes;
+		return contactNotes;
 	}
 	/**
 	* Add notes about the contact.
@@ -58,11 +58,11 @@ public class ContactImpl implements Contact {
 	* @param note the notes to be added
 	*/
 	public void addNotes(String note) {
-		if(notes == null) {
-			notes = note;
+		if(contactNotes == null) {
+			contactNotes = note;
 		}
 		else {
-			notes = notes + note;
+			contactNotes = contactNotes + note;
 		}
 	}
 }
