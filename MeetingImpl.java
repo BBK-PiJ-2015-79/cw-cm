@@ -11,6 +11,9 @@ public abstract class MeetingImpl implements Meeting {
 		if(id < 1) {
 			throw new IllegalArgumentException();
 		}
+		if(date == null) {
+			throw new NullPointerException();
+		}
 	}
 	/**
 	* Returns the id of the meeting.
