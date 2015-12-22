@@ -16,7 +16,13 @@ public class ContactImpl implements Contact {
 		}
 	}
 	public ContactImpl(int id, String name, String notes) {
-		// two argument constructor, empty for now
+		// three argument constructor, empty for now
+		if(id < 1) {
+			throw new IllegalArgumentException();
+		}
+		if(name == null || notes == null) {
+			throw new NullPointerException();
+		}
 	}
 	/**
 	* Returns the ID of the contact.
