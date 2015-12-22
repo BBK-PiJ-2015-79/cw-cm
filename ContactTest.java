@@ -43,6 +43,6 @@ public class ContactTest {
 	@Test
 	public void testNameSetCorrectlyWithTwoArgCons() {
 		testContact = new ContactImpl(543, "Arthur Test");
-		assertEquals(543, testContact.getName());
+		assertEquals("Arthur Test", testContact.getName());
 	}
 }
