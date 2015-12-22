@@ -45,4 +45,22 @@ public class ContactTest {
 		testContact = new ContactImpl(543, "Arthur Test");
 		assertEquals("Arthur Test", testContact.getName());
 	}
+
+	@Test
+	public void testIdSetCorrectlyWithThreeArgCons() {
+		testContact = new ContactImpl(543, "Arthur Test", "Some notes");
+		assertEquals(543, testContact.getId());
+	}
+
+	@Test
+	public void testNameSetCorrectlyWithThreeArgCons() {
+		testContact = new ContactImpl(543, "Arthur Test", "Some notes");
+		assertEquals("Arthur Test", testContact.getName());
+	}
+
+	@Test
+	public void testNotesSetCorrectlyWithThreeArgCons() {
+		testContact = new ContactImpl(543, "Arthur Test", "Some notes");
+		assertEquals("Some notes", testContact.getNotes());
+	}
 }
