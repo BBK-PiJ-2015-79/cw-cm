@@ -48,6 +48,7 @@ public class ContactImpl implements Contact {
 	*
 	* @return the ID of the contact.
 	*/
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -56,6 +57,7 @@ public class ContactImpl implements Contact {
 	*
 	* @return the name of the contact.
 	*/
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -67,6 +69,7 @@ public class ContactImpl implements Contact {
 	*
 	* @return a string with notes about the contact, maybe empty.
 	*/
+	@Override
 	public String getNotes() {
 		return contactNotes;
 	}
@@ -75,12 +78,8 @@ public class ContactImpl implements Contact {
 	*
 	* @param note the notes to be added
 	*/
+	@Override
 	public void addNotes(String note) {
-		if(contactNotes == null) {
-			contactNotes = note;
-		}
-		else {
-			contactNotes = contactNotes + note;
-		}
+		contactNotes = contactNotes + note;
 	}
 }
