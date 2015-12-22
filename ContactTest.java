@@ -63,4 +63,14 @@ public class ContactTest {
 		testContact = new ContactImpl(543, "Arthur Test", "Some notes");
 		assertEquals("Some notes", testContact.getNotes());
 	}
+
+	@Test
+	public void testAddNotesAfterTwoArgumentConstructor() {
+		testContact = new ContactImpl(8615, "James Test");
+		assertEquals("", testContact.getNotes());
+		testContact.addNotes("some notes");
+		assertEquals("some notes", testContact.getNotes());
+		testContact.addNotes("more notes");
+		assertEquals("some notesmore notes", testContact.getNotes());
+	}
 }

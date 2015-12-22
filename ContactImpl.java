@@ -8,6 +8,7 @@
 public class ContactImpl implements Contact {
 	private int id;
 	private String name;
+	private String notes;
 
 	public ContactImpl(int id, String name) {
 		this(id, name, "");
@@ -22,6 +23,7 @@ public class ContactImpl implements Contact {
 		}
 		this.id = id;
 		this.name = name;
+		this.notes = notes;
 	}
 	/**
 	* Returns the ID of the contact.
@@ -48,7 +50,7 @@ public class ContactImpl implements Contact {
 	* @return a string with notes about the contact, maybe empty.
 	*/
 	public String getNotes() {
-		return "";
+		return notes;
 	}
 	/**
 	* Add notes about the contact.
