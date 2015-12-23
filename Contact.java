@@ -4,6 +4,8 @@
 * Contacts have an ID (unique, a non-zero positive integer),
 * a name (not necessarily unique), and notes that the user
 * may want to save about them.
+*
+* @author PiJ Team
 */
 public interface Contact {
 	/**

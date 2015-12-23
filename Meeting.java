@@ -4,6 +4,8 @@ import java.util.Set;
 * A class to represent meetings
 *
 * Meetings have unique IDs, scheduled date and a list of participating contacts
+*
+* @auhor PiJ Team
 */
 public interface Meeting {
 	/**

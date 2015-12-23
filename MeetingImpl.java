@@ -4,12 +4,25 @@ import java.util.Set;
 * Implementation of the Meeting interface. A class to represent meetings
 *
 * Meetings have unique IDs, scheduled date and a list of participating contacts
+*
+* @author Chris Grocott
 */
 public abstract class MeetingImpl implements Meeting {
 	private int id;
 	private Calendar date;
 	private Set<Contact> contacts;
 
+	/**
+	 * Constructor for MeetingImpl objects. If the date or contacts parameter is null
+	 * then a NullPointerException is thrown. If the contacts list is empty then an
+	 * IllegalArgumentException is thrown.
+	 *
+	 * @param id the id of the meeting
+	 * @param date the date of the meeting
+	 * @param contacts a list of the contacts attending the meeting
+	 * @throws NullPointerException
+	 * @throws IllegalArgumentException
+	 */
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		if(date == null || contacts == null) {
 			throw new NullPointerException();
@@ -26,6 +39,7 @@ public abstract class MeetingImpl implements Meeting {
 	*
 	* @return the id of the meeting.
 	*/
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -34,6 +48,7 @@ public abstract class MeetingImpl implements Meeting {
 	*
 	* @return the date of the meeting.
 	*/
+	@Override
 	public Calendar getDate() {
 		return date;
 	}
@@ -46,6 +61,7 @@ public abstract class MeetingImpl implements Meeting {
 	*
 	* @return the details of people that attended the meeting.
 	*/
+	@Override
 	public Set<Contact> getContacts() {
 		return contacts;
 	}

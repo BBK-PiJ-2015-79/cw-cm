@@ -6,6 +6,8 @@
 * Contacts have an ID (unique, a non-zero positive integer),
 * a name (not necessarily unique), and notes that the user
 * may want to save about them.
+*
+* @author Chris Grocott
 */
 public class ContactImpl implements Contact {
 	private int id;
