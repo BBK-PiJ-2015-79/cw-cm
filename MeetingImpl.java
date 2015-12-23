@@ -1,13 +1,12 @@
 import java.util.Calendar;
 import java.util.Set;
 /**
-* A class to represent meetings
+* Implementation of the Meeting interface. A class to represent meetings
 *
 * Meetings have unique IDs, scheduled date and a list of participating contacts
 */
 public abstract class MeetingImpl implements Meeting {
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
-		//placeholder for testing
 		if(date == null || contacts == null) {
 			throw new NullPointerException();
 		}

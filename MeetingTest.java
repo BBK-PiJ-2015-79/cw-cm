@@ -32,4 +32,10 @@ public class MeetingTest {
 	public void testFutureMeetingConsThrowsIAEOnThirdParam() {
 		testMeeting = new FutureMeetingImpl(1, new GregorianCalendar(), new TreeSet<Contact>());
 	}
+
+	@Test
+	public void testFutureMeetingReturnsCorrectId() {
+		testMeeting = new FutureMeetingImpl(167, new GregorianCalendar(), testContactList);
+		assertEquals(167, testMeeting.getId());
+	}
 }
