@@ -54,7 +54,7 @@ public class MeetingTest {
 		assertTrue(testContactList == testMeeting.getContacts());
 	}
 
-	// all of these tests also apply to past meetings
+	// all of the above tests also apply to past meetings
 	@Test(expected = IllegalArgumentException.class)
 	public void testPastMeetingConsThrowsIAEOnFirstParam() {
 		testMeeting = new PastMeetingImpl(0, testDate, testContactList, "");
@@ -92,5 +92,11 @@ public class MeetingTest {
 	public void testPastMeetingReturnsCorrectContactList() {
 		testMeeting = new PastMeetingImpl(1274, testDate, testContactList, "");
 		assertTrue(testContactList == testMeeting.getContacts());
+	}
+
+	// as well as some which only apply to past meetings
+	@Test(expected = NullPointerException.class)
+	public void testPastMeetingConsThrowsNPEOnFourthParam() {
+		testMeeting = new PastMeetingImpl(1274, testDate, testContactList, null);
 	}
 }
