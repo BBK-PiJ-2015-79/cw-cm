@@ -8,6 +8,7 @@ import java.util.Set;
 public abstract class MeetingImpl implements Meeting {
 	private int id;
 	private Calendar date;
+	private Set<Contact> contacts;
 
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		if(date == null || contacts == null) {
@@ -18,6 +19,7 @@ public abstract class MeetingImpl implements Meeting {
 		}
 		this.id = id;
 		this.date = date;
+		this.contacts = contacts;
 	}
 	/**
 	* Returns the id of the meeting.
@@ -45,6 +47,6 @@ public abstract class MeetingImpl implements Meeting {
 	* @return the details of people that attended the meeting.
 	*/
 	public Set<Contact> getContacts() {
-		return null;
+		return contacts;
 	}
 }
