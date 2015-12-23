@@ -44,6 +44,13 @@ public class MeetingTest {
 	@Test
 	public void testFutureMeetingReturnsCorrectDate() {
 		testMeeting = new FutureMeetingImpl(1274, testDate, testContactList);
-		assertTrue(testDate.equals(testMeeting.getDate()));
+		//assertTrue(testDate.equals(testMeeting.getDate()));
+		assertTrue(testDate == testMeeting.getDate());
+	}
+
+	@Test
+	public void testFutureMeetingReturnsCorrectContactList() {
+		testMeeting = new FutureMeetingImpl(1274, testDate, testContactList);
+		assertTrue(testContactList == testMeeting.getContacts());
 	}
 }

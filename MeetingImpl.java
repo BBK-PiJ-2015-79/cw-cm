@@ -7,6 +7,7 @@ import java.util.Set;
 */
 public abstract class MeetingImpl implements Meeting {
 	private int id;
+	private Calendar date;
 
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		if(date == null || contacts == null) {
@@ -16,6 +17,7 @@ public abstract class MeetingImpl implements Meeting {
 			throw new IllegalArgumentException();
 		}
 		this.id = id;
+		this.date = date;
 	}
 	/**
 	* Returns the id of the meeting.
@@ -31,7 +33,7 @@ public abstract class MeetingImpl implements Meeting {
 	* @return the date of the meeting.
 	*/
 	public Calendar getDate() {
-		return null;
+		return date;
 	}
 	/**
 	* Return the details of people that attended the meeting.
