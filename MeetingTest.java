@@ -99,4 +99,9 @@ public class MeetingTest {
 	public void testPastMeetingConsThrowsNPEOnFourthParam() {
 		testMeeting = new PastMeetingImpl(1274, testDate, testContactList, null);
 	}
+
+	@Test public void testPastMeetingReturnsCorrectNotes() {
+		testMeeting = new PastMeetingImpl(1274, testDate, testContactList, "This meeting was the best ever.");
+		assertEquals("This meeting was the best ever.", ((PastMeeting)testMeeting).getNotes());
+	}
 }
