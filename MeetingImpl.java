@@ -8,11 +8,11 @@ import java.util.Set;
 public abstract class MeetingImpl implements Meeting {
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		//placeholder for testing
-		if(id < 1) {
-			throw new IllegalArgumentException();
-		}
 		if(date == null || contacts == null) {
 			throw new NullPointerException();
+		}
+		else if((id < 1) || contacts.isEmpty()) {
+			throw new IllegalArgumentException();
 		}
 	}
 	/**
