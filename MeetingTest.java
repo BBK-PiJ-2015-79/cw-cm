@@ -5,12 +5,14 @@ import java.util.*;
 public class MeetingTest {
 	private Meeting testMeeting;
 	Set<Contact> testContactList;
+	Calendar testDate;
 
 	@Before
 	public void resetTestMeeting() {
 		testMeeting = null;
 		testContactList = new HashSet<Contact>();
 		testContactList.add(new ContactImpl(1, "Testy Testerton"));
+		testDate = new GregorianCalendar();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -37,5 +39,11 @@ public class MeetingTest {
 	public void testFutureMeetingReturnsCorrectId() {
 		testMeeting = new FutureMeetingImpl(167, new GregorianCalendar(), testContactList);
 		assertEquals(167, testMeeting.getId());
+	}
+
+	@Test
+	public void testFutureMeetingReturnsCorrectDate() {
+		testMeeting = new FutureMeetingImpl(1274, testDate, testContactList);
+		assertTrue(testDate.equals(testMeeting.getDate()));
 	}
 }
