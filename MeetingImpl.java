@@ -6,6 +6,8 @@ import java.util.Set;
 * Meetings have unique IDs, scheduled date and a list of participating contacts
 */
 public abstract class MeetingImpl implements Meeting {
+	private int id;
+
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		if(date == null || contacts == null) {
 			throw new NullPointerException();
@@ -13,6 +15,7 @@ public abstract class MeetingImpl implements Meeting {
 		else if((id < 1) || contacts.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
+		this.id = id;
 	}
 	/**
 	* Returns the id of the meeting.
@@ -20,7 +23,7 @@ public abstract class MeetingImpl implements Meeting {
 	* @return the id of the meeting.
 	*/
 	public int getId() {
-		return -1;
+		return id;
 	}
 	/**
 	* Return the date of the meeting.
