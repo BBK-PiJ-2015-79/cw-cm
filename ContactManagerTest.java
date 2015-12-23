@@ -6,7 +6,7 @@ public class ContactManagerTest {
 	private ContactManager cMTest;
 	private Calendar futureDate;
 
-	@BeforeClass
+	@Before
 	public void resetCMTest() {
 		cMTest = new ContactManagerImpl();
 		futureDate = new GregorianCalendar();

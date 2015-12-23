@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.Random;
 /**
 * An implementation of the ContactManager interface.
 *
@@ -9,8 +10,12 @@ import java.util.Set;
 * @author Chris Grocott
 */
 public class ContactManagerImpl implements ContactManager {
+	private Random rand;
+	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
+
 	public ContactManagerImpl() {
 		//placeholder constructor for now
+		rand = new Random();
 	}
 	/**
 	* Add a new meeting to be held in the future.
@@ -27,7 +32,9 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		return 0;
+		int candidateId = rand.nextInt(UPPER_BOUND) + 1; // add one to make sure you never get zero
+		System.out.println("Candidate ID is: " + candidateId); //debug
+		return candidateId;
 	}
 	
 	/**
