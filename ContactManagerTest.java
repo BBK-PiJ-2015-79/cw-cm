@@ -5,11 +5,14 @@ import java.util.*;
 public class ContactManagerTest {
 	private ContactManager cMTest;
 	private Calendar futureDate;
+	private Calendar pastDate;
 
 	@Before
 	public void resetCMTest() {
 		cMTest = new ContactManagerImpl();
-		futureDate = new GregorianCalendar();
+		futureDate = new GregorianCalendar(2525, 01, 01);
+		pastDate = new GregorianCalendar(1979, 07, 23);
+
 	}
 
 	@Test
@@ -18,6 +21,13 @@ public class ContactManagerTest {
 		contactList.add(new ContactImpl(1, "Bill Testman"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
 		assertTrue(newFMeetingId > 0);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkThatNPEThrownWhenCreatingFutureMeetingInPast() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Bill Testman"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, pastDate);
 	}
 
 }
