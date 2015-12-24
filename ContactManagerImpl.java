@@ -36,6 +36,10 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+		if(!(Calendar.getInstance().compareTo(date) < 0)) {
+			//System.out.println(date.get(date.YEAR)); //debug
+			throw new IllegalArgumentException();
+		}
 		int candidateId;
 		do {
 			candidateId = rand.nextInt(UPPER_BOUND) + 1; // add one to make sure you never get zero

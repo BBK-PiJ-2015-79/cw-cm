@@ -23,7 +23,7 @@ public class ContactManagerTest {
 		assertTrue(newFMeetingId > 0);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void checkThatNPEThrownWhenCreatingFutureMeetingInPast() {
 		Set<Contact> contactList = new HashSet<Contact>();
 		contactList.add(new ContactImpl(1, "Bill Testman"));
