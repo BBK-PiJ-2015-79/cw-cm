@@ -85,12 +85,22 @@ public class ContactImpl implements Contact {
 		contactNotes = contactNotes + note;
 	}
 
+	/**
+	 * Check whether the object passed as a parameter is equal to the current Contact.
+	 * 
+	 * For two Contacts to be equivalent, both must implement the interface Contact and
+	 * have the same id.
+	 *
+	 * @param o the object to be checked for equality.
+	 * @return true if the object is an instance of Contact and has the same id as the current Contact
+	 */
 	@Override
 	public boolean equals(Object o) {
-		System.out.println("HELLO: " + o.getClass().getInterfaces().toString());
+		//System.out.println("HELLO: " + o.getClass().getInterfaces().toString()); //debug
 		if(o == null || !(o instanceof Contact)) {
 			return false;
 		}
-		return this.getId() == ((Contact)o).getId();
+		System.out.println("It's a contact... " + this.getName() + " " + ((Contact)o).getName() + " " + (this.getId() == ((Contact)o).getId())); //debug
+		return (this.getId() == ((Contact)o).getId());
 	}
 }

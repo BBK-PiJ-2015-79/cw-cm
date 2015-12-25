@@ -88,4 +88,9 @@ public class ContactTest {
 		//assertTrue(testContact.equals(compareContact));
 	}
 
+	@Test
+	public void testEqualsReturnsFalseIfContactIdIsDifferent() {
+		testContact = new ContactImpl(1, "Testy Testerson");
+		assertFalse(testContact.equals(new ContactImpl(2, "Testy Testerson")));
+	}
 }

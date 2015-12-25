@@ -41,7 +41,8 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		if(!(Calendar.getInstance().compareTo(date) < 0)) {
+		//System.out.println("Are all contacts known? " + allContactsKnown(contacts)); //debug
+		if(!(Calendar.getInstance().compareTo(date) < 0) || !allContactsKnown(contacts)) {
 			//System.out.println(date.get(date.YEAR)); //debug
 			throw new IllegalArgumentException();
 		}
@@ -49,9 +50,31 @@ public class ContactManagerImpl implements ContactManager {
 		do {
 			candidateId = rand.nextInt(UPPER_BOUND) + 1; // add one to make sure you never get zero
 		} while (meetings.containsKey(new Integer(candidateId)));
-		System.out.println("Candidate ID is: " + candidateId); //debug
+		//System.out.println("Candidate ID is: " + candidateId); //debug
 		meetings.put(new Integer(candidateId), new FutureMeetingImpl(candidateId, date, contacts));
 		return candidateId;
+	}
+
+	private boolean allContactsKnown(Set<Contact> someContacts) {
+		boolean returnBool = true;
+		for(Contact c : someContacts) {
+			//
+			if(!contactKnown(c)) {
+				returnBool = false;
+			}
+		}
+		return returnBool;
+	}
+
+	private boolean contactKnown(Contact someContact) {
+		boolean returnBool = false;
+		for(Contact c: contactList) {
+			if(someContact.equals(c)) {
+				returnBool = true;
+				break;
+			}
+		}
+		return returnBool;
 	}
 	
 	/**
