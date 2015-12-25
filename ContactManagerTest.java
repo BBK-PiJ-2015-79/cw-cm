@@ -30,4 +30,11 @@ public class ContactManagerTest {
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, pastDate);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkThatNPEThrownWhenCreatingFutureMeetingWithUnknownContact() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(2, "Veronica Testingston"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+	}
+
 }
