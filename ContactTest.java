@@ -79,4 +79,13 @@ public class ContactTest {
 		testContact.addNotes("more notes");
 		assertEquals("some notesmore notes", testContact.getNotes());
 	}
+
+	@Test
+	public void testEqualsReturnsTrueIfContactIdsAreSame() {
+		testContact = new ContactImpl(1, "Testy Testerson");
+		//Contact compareContact = new ContactImpl(0, "Testy Testerson");
+		assertTrue(testContact.equals(new ContactImpl(1, "Testy Testerson")));
+		//assertTrue(testContact.equals(compareContact));
+	}
+
 }

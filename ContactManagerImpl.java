@@ -4,6 +4,8 @@ import java.util.Set;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 /**
 * An implementation of the ContactManager interface.
 *
@@ -15,11 +17,14 @@ public class ContactManagerImpl implements ContactManager {
 	private Random rand;
 	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
 	private Map<Integer, Meeting> meetings;
+	private Set<Contact> contactList;
 
 	public ContactManagerImpl() {
 		//placeholder constructor for now
 		rand = new Random();
 		meetings = new HashMap<Integer, Meeting>();
+		contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Bill Testman")); // hard code for testing
 	}
 	/**
 	* Add a new meeting to be held in the future.

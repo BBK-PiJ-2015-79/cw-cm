@@ -84,4 +84,13 @@ public class ContactImpl implements Contact {
 	public void addNotes(String note) {
 		contactNotes = contactNotes + note;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		System.out.println("HELLO: " + o.getClass().getInterfaces().toString());
+		if(o == null || !(o instanceof Contact)) {
+			return false;
+		}
+		return this.getId() == ((Contact)o).getId();
+	}
 }
