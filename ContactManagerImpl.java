@@ -25,6 +25,9 @@ public class ContactManagerImpl implements ContactManager {
 		meetings = new HashMap<Integer, Meeting>();
 		contactList = new HashSet<Contact>();
 		contactList.add(new ContactImpl(1, "Bill Testman")); // hard code for testing
+		for(int i = 2; i <= 100; i++) {
+			contactList.add(new ContactImpl(i, "Test"));
+		}
 	}
 	/**
 	* Add a new meeting to be held in the future.
@@ -42,6 +45,9 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		//System.out.println("Are all contacts known? " + allContactsKnown(contacts)); //debug
+		if(contacts == null || date == null) { //included even though this seems to happen implicitly //clean
+			throw new NullPointerException();
+		}
 		if(!(Calendar.getInstance().compareTo(date) < 0) || !allContactsKnown(contacts)) {
 			//System.out.println(date.get(date.YEAR)); //debug
 			throw new IllegalArgumentException();
@@ -61,6 +67,7 @@ public class ContactManagerImpl implements ContactManager {
 			//
 			if(!contactKnown(c)) {
 				returnBool = false;
+				break;
 			}
 		}
 		return returnBool;

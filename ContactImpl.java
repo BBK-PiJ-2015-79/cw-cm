@@ -100,7 +100,7 @@ public class ContactImpl implements Contact {
 		if(o == null || !(o instanceof Contact)) {
 			return false;
 		}
-		System.out.println("It's a contact... " + this.getName() + " " + ((Contact)o).getName() + " " + (this.getId() == ((Contact)o).getId())); //debug
+		//System.out.println("It's a contact... " + this.getName() + " " + ((Contact)o).getName() + " " + (this.getId() == ((Contact)o).getId())); //debug
 		return (this.getId() == ((Contact)o).getId());
 	}
 }
