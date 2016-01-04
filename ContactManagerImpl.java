@@ -95,7 +95,6 @@ public class ContactManagerImpl implements ContactManager {
 			throw new NullPointerException();
 		}
 		if(!(Calendar.getInstance().compareTo(date) < 0) || (maxContact.isPresent() && maxContact.get().getId() > getHighestContactId())) {
-			//System.out.println(date.get(date.YEAR)); //debug
 			throw new IllegalArgumentException();
 		}
 		if(meetingsFull) {
@@ -217,6 +216,15 @@ public class ContactManagerImpl implements ContactManager {
 		if(contacts.isEmpty() || (maxContact.isPresent() && maxContact.get().getId() > getHighestContactId())) {
 			throw new IllegalArgumentException();
 		}
+		int pastMeetingId = 0;
+		if(meetingsFull) {
+			throw new IndexOutOfBoundsException();
+		}
+		else {
+			pastMeetingId = (getHighestMeetingId() + 1);
+			incrementHighestMeetingId();
+		}
+		meetings.add(new PastMeetingImpl(pastMeetingId, date, contacts, text));
 		return;
 	}
 	
