@@ -216,6 +216,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(ids == null) {
 			throw new NullPointerException();
 		}
+		else if(ids.length == 0) {
+			throw new IllegalArgumentException();
+		}
 		//List<Integer> idList = Arrays.asList(ids); //debug
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			boolean inContacts = false;
