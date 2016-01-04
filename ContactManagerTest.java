@@ -17,21 +17,25 @@ public class ContactManagerTest {
 	//Tests for adding new FutureMeetings
 	@Test
 	public void checkAddingNewFutureMeetingReturnsIdGreaterThanZero() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		//System.out.println("Added id: " + newId);
 		Set<Contact> contactList = new HashSet<Contact>();
-		contactList.add(new ContactImpl(1, "Bill Testman"));
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
 		assertTrue(newFMeetingId > 0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void checkThatIAEThrownWhenCreatingFutureMeetingInPast() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
-		contactList.add(new ContactImpl(1, "Bill Testman"));
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, pastDate);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void checkThatIAEThrownWhenCreatingFutureMeetingWithUnknownContact() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
 		contactList.add(new ContactImpl(2590438, "Veronica Testingston"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
@@ -39,13 +43,15 @@ public class ContactManagerTest {
 
 	@Test(expected = NullPointerException.class)
 	public void checkThatNPEThrownWhenCreatingFutureMeetingWithNullContacts() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		int newFMeetingId = cMTest.addFutureMeeting(null, futureDate);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void checkThatNPEThrownWhenCreatingFutureMeetingWithNullDate() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
-		contactList.add(new ContactImpl(1, "Bill Testman"));
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, null);
 	}
 

@@ -89,6 +89,15 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		int newMeetingId = 0;
+		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
+		
+		if(contacts == null || date == null) { //included even though this seems to happen implicitly //cleanup
+			throw new NullPointerException();
+		}
+		if(!(Calendar.getInstance().compareTo(date) < 0) || (maxContact.isPresent() && maxContact.get().getId() > getHighestContactId())) {
+			//System.out.println(date.get(date.YEAR)); //debug
+			throw new IllegalArgumentException();
+		}
 		if(meetingsFull) {
 			throw new IndexOutOfBoundsException();
 		}
