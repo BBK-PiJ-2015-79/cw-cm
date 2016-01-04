@@ -229,6 +229,9 @@ public class ContactManagerImpl implements ContactManager {
 			}
 			return inContacts;
 		}).collect(Collectors.toSet());
+		if(returnSet.size() < ids.length) { //some contacts don't exist
+			throw new IllegalArgumentException();
+		}
 		return returnSet;
 	}
 	
