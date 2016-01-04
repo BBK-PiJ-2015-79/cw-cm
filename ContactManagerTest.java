@@ -55,6 +55,17 @@ public class ContactManagerTest {
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, null);
 	}
 
+	//Tests for getting Meetings
+
+	@Test
+	public void checkThatGetMeetingReturnsCorrectMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+		assertFalse(cMTest.getMeeting(newFMeetingId) == null);
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
