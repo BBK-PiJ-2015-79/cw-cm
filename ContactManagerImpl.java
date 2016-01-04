@@ -189,6 +189,9 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the parameter is null
 	*/
 	public Set<Contact> getContacts(String name) {
+		if(name == null) {
+			throw new NullPointerException();
+		}
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			//check whether name contains substring //debug
 			//boolean returnBool = e.getName().matches(".*" + name + ".*");

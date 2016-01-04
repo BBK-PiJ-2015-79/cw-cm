@@ -73,6 +73,7 @@ public class ContactManagerTest {
 
 	@Test(expected = NullPointerException.class)
 	public void checkGetContactsNameThrowsNPEWithNullParam() {
+		String testName = null;
 		int[] contactIdArray = new int[3];
 		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
 		//System.out.println("Retrieving, ID is: " + contactIdArray[0]); //debug
@@ -80,7 +81,7 @@ public class ContactManagerTest {
 		//System.out.println("Retrieving, ID is: " + contactIdArray[1]); //debug
 		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
 		//System.out.println("Retrieving, ID is: " + contactIdArray[2]); //debug
-		Set<Contact> testContactSet = cMTest.getContacts(null);
+		Set<Contact> testContactSet = cMTest.getContacts(testName);
 	}
 
 }
