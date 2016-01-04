@@ -43,6 +43,14 @@ public class ContactManagerTest {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "");
 	}
 
+	@Test(timeout = 10000)
+	public void addAMillionConacts() {
+		for(int i = 0; i < 1000000; i++) {
+			int newContactId = cMTest.addNewContact("Test dude", "Test");
+			System.out.println("Contact " + i + " id: " + newContactId);
+		}
+	}
+
 	// Tests for getting contacts with ids
 
 	@Test
