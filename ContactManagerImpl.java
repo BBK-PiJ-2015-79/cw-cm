@@ -188,6 +188,10 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the parameter is null
 	*/
 	public Set<Contact> getContacts(String name) {
+		Set<Contact> returnSet = contacts.stream().filter(e -> {
+			//check whether name contains substring
+		}).collect(Collectors.toSet());
+		//return returnSet;
 		return null;
 	}
 	
@@ -201,7 +205,17 @@ public class ContactManagerImpl implements ContactManager {
 	* any of the provided IDs does not correspond to a real contact
 	*/
 	public Set<Contact> getContacts(int... ids) {
-		return null;
+		//List<Integer> idList = Arrays.asList(ids);
+		Set<Contact> returnSet = contacts.stream().filter(e -> {
+			boolean inContacts = false;
+			for(int i=0; i < ids.length; i++) {
+				if(ids[i] == e.getId()) {
+					inContacts = true;
+				}
+			}
+			return inContacts;
+		}).collect(Collectors.toSet());
+		return returnSet;
 	}
 	
 	/**

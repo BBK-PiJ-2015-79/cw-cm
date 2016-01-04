@@ -31,4 +31,14 @@ public class ContactManagerTest {
 		assertEquals(1, testContactSet.size());
 	}
 
+	@Test
+	public void checkGetContactsWithDoubleId() {
+		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		System.out.println("Retrieving, ID is: " + newContactId);
+		int newContactId2 = cMTest.addNewContact("Tracey Test", "This lady is a test");
+		System.out.println("Retrieving, ID is: " + newContactId2);
+		Set<Contact> testContactSet = cMTest.getContacts(newContactId, newContactId2);
+		assertEquals(2, testContactSet.size());
+	}
+
 }
