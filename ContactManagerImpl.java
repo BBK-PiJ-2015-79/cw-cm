@@ -142,7 +142,13 @@ public class ContactManagerImpl implements ContactManager {
 	* @return the meeting with the requested ID, or null if it there is none.
 	*/
 	public Meeting getMeeting(int id) {
-		return null;
+		Optional<Meeting> matchedMeeting = meetings.stream().filter(e -> e.getId() == id).findFirst();
+		if(matchedMeeting.isPresent()) {
+			return matchedMeeting.get();
+		}
+		else {
+			return null;
+		}
 	}
 	
 	/**
