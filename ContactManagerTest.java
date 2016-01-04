@@ -56,6 +56,19 @@ public class ContactManagerTest {
 		Set<Contact> testContactSet = cMTest.getContacts(idArray);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkGetContactsIdThrowsIAEWithZeroLengthArray() {
+		int[] idArray = new int[0];
+		int[] contactIdArray = new int[3];
+		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[0]); //debug
+		contactIdArray[1] = cMTest.addNewContact("Tracey Testington", "This lady is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[1]); //debug
+		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[2]); //debug
+		Set<Contact> testContactSet = cMTest.getContacts(idArray);
+	}
+
 	// Tests for getting contacts with names
 
 	@Test
