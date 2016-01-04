@@ -66,6 +66,7 @@ public class ContactManagerTest {
 		assertFalse(cMTest.getMeeting(newFMeetingId) == null);
 	}
 
+	@Test
 	public void checkThatGetMeetingReturnsNullForUnknownMeeting() {
 		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
