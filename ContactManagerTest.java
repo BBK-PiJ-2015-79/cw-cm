@@ -19,7 +19,7 @@ public class ContactManagerTest {
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
-		System.out.println("Adding, ID is: " + newContactId);
+		//System.out.println("Adding, ID is: " + newContactId); //debug
 		assertTrue(newContactId > 0);
 	}
 
@@ -28,7 +28,7 @@ public class ContactManagerTest {
 	@Test
 	public void checkGetContactsWithSingleId() {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
-		System.out.println("Retrieving, ID is: " + newContactId);
+		//System.out.println("Retrieving, ID is: " + newContactId); //debug
 		Set<Contact> testContactSet = cMTest.getContacts(newContactId);
 		assertEquals(1, testContactSet.size());
 	}
@@ -36,9 +36,9 @@ public class ContactManagerTest {
 	@Test
 	public void checkGetContactsWithDoubleId() {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
-		System.out.println("Retrieving, ID is: " + newContactId);
+		//System.out.println("Retrieving, ID is: " + newContactId); //debug
 		int newContactId2 = cMTest.addNewContact("Tracey Test", "This lady is a test");
-		System.out.println("Retrieving, ID is: " + newContactId2);
+		//System.out.println("Retrieving, ID is: " + newContactId2); //debug
 		Set<Contact> testContactSet = cMTest.getContacts(newContactId, newContactId2);
 		assertEquals(2, testContactSet.size());
 	}
@@ -49,13 +49,26 @@ public class ContactManagerTest {
 	public void checkGetContactsName() {
 		int[] contactIdArray = new int[3];
 		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
-		System.out.println("Retrieving, ID is: " + contactIdArray[0]);
+		//System.out.println("Retrieving, ID is: " + contactIdArray[0]); //debug
 		contactIdArray[1] = cMTest.addNewContact("Tracey Testington", "This lady is a test");
-		System.out.println("Retrieving, ID is: " + contactIdArray[1]);
+		//System.out.println("Retrieving, ID is: " + contactIdArray[1]); //debug
 		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
-		System.out.println("Retrieving, ID is: " + contactIdArray[2]);
+		//System.out.println("Retrieving, ID is: " + contactIdArray[2]); //debug
 		Set<Contact> testContactSet = cMTest.getContacts("Test");
 		assertEquals(2, testContactSet.size());
+	}
+
+	@Test
+	public void checkGetContactsWithEmptyString() {
+		int[] contactIdArray = new int[3];
+		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[0]); //debug
+		contactIdArray[1] = cMTest.addNewContact("Tracey Testington", "This lady is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[1]); //debug
+		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[2]); //debug
+		Set<Contact> testContactSet = cMTest.getContacts("");
+		assertEquals(3, testContactSet.size());
 	}
 
 }

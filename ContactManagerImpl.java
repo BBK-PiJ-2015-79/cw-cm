@@ -174,7 +174,7 @@ public class ContactManagerImpl implements ContactManager {
 	private boolean contactIdExists(int someId) {
 		Stream contactStream = contacts.stream().filter(e -> e.getId() == someId);
 		long numMatchingIds = contactStream.count();
-		System.out.println(numMatchingIds);
+		//System.out.println(numMatchingIds); //debug
 		return (numMatchingIds > 0L);
 	}
 	
@@ -190,7 +190,7 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	public Set<Contact> getContacts(String name) {
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
-			//check whether name contains substring //clean
+			//check whether name contains substring //debug
 			//boolean returnBool = e.getName().matches(".*" + name + ".*");
 			//if(returnBool) {
 			//	System.out.println(e.getName());
@@ -210,7 +210,7 @@ public class ContactManagerImpl implements ContactManager {
 	* any of the provided IDs does not correspond to a real contact
 	*/
 	public Set<Contact> getContacts(int... ids) {
-		//List<Integer> idList = Arrays.asList(ids); //clean
+		//List<Integer> idList = Arrays.asList(ids); //debug
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			boolean inContacts = false;
 			for(int i=0; i < ids.length; i++) {
