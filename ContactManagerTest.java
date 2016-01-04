@@ -41,4 +41,17 @@ public class ContactManagerTest {
 		assertEquals(2, testContactSet.size());
 	}
 
+	@Test
+	public void checkGetContactsName() {
+		int[] contactIdArray = new int[3];
+		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
+		System.out.println("Retrieving, ID is: " + contactIdArray[0]);
+		contactIdArray[1] = cMTest.addNewContact("Tracey Testington", "This lady is a test");
+		System.out.println("Retrieving, ID is: " + contactIdArray[1]);
+		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
+		System.out.println("Retrieving, ID is: " + contactIdArray[2]);
+		Set<Contact> testContactSet = cMTest.getContacts("Test");
+		assertEquals(2, testContactSet.size());
+	}
+
 }

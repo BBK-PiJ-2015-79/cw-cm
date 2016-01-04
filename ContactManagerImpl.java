@@ -170,6 +170,7 @@ public class ContactManagerImpl implements ContactManager {
 		return newContactId;
 	}
 
+	// Private method to check whether a contact exists with the specified id
 	private boolean contactIdExists(int someId) {
 		Stream contactStream = contacts.stream().filter(e -> e.getId() == someId);
 		long numMatchingIds = contactStream.count();
@@ -190,9 +191,10 @@ public class ContactManagerImpl implements ContactManager {
 	public Set<Contact> getContacts(String name) {
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			//check whether name contains substring
+			System.out.println(e.getName());
+			return e.getName().matches(name);
 		}).collect(Collectors.toSet());
-		//return returnSet;
-		return null;
+		return returnSet;
 	}
 	
 	/**
