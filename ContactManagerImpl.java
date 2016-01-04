@@ -190,9 +190,12 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	public Set<Contact> getContacts(String name) {
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
-			//check whether name contains substring
-			System.out.println(e.getName());
-			return e.getName().matches(name);
+			//check whether name contains substring //clean
+			//boolean returnBool = e.getName().matches(".*" + name + ".*");
+			//if(returnBool) {
+			//	System.out.println(e.getName());
+			//}
+			return e.getName().matches(".*" + name + ".*");
 		}).collect(Collectors.toSet());
 		return returnSet;
 	}
@@ -207,7 +210,7 @@ public class ContactManagerImpl implements ContactManager {
 	* any of the provided IDs does not correspond to a real contact
 	*/
 	public Set<Contact> getContacts(int... ids) {
-		//List<Integer> idList = Arrays.asList(ids);
+		//List<Integer> idList = Arrays.asList(ids); //clean
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			boolean inContacts = false;
 			for(int i=0; i < ids.length; i++) {

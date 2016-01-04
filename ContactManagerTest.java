@@ -23,6 +23,8 @@ public class ContactManagerTest {
 		assertTrue(newContactId > 0);
 	}
 
+	// Tests for getting contacts with ids
+
 	@Test
 	public void checkGetContactsWithSingleId() {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
@@ -40,6 +42,8 @@ public class ContactManagerTest {
 		Set<Contact> testContactSet = cMTest.getContacts(newContactId, newContactId2);
 		assertEquals(2, testContactSet.size());
 	}
+
+	// Tests for getting contacts with names
 
 	@Test
 	public void checkGetContactsName() {
