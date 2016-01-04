@@ -213,6 +213,9 @@ public class ContactManagerImpl implements ContactManager {
 	* any of the provided IDs does not correspond to a real contact
 	*/
 	public Set<Contact> getContacts(int... ids) {
+		if(ids == null) {
+			throw new NullPointerException();
+		}
 		//List<Integer> idList = Arrays.asList(ids); //debug
 		Set<Contact> returnSet = contacts.stream().filter(e -> {
 			boolean inContacts = false;
