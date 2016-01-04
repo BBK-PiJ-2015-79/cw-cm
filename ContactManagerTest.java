@@ -23,6 +23,16 @@ public class ContactManagerTest {
 		assertTrue(newContactId > 0);
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void checkNPEThrownWhenAddingContactWithNullName() {
+		int newContactId = cMTest.addNewContact(null, "This guy is a test");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkNPEThrownWhenAddingContactWithNullNotes() {
+		int newContactId = cMTest.addNewContact("Jimmy Test", null);
+	}
+
 	// Tests for getting contacts with ids
 
 	@Test
