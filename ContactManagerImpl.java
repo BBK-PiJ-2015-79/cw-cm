@@ -25,6 +25,8 @@ public class ContactManagerImpl implements ContactManager {
 		meetings = new HashSet<Meeting>();
 		highestContactId = calculateHighestContactId();
 		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
+		highestMeetingId = calculateHighestMeetingId();
+		meetingsFull = (highestMeetingId < UPPER_BOUND) ? false : true;
 	}
 
 	//Helper methods for adding new Contacts
@@ -83,9 +85,19 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if the meeting is set for a time
 	* in the past, of if any contact is unknown / non-existent.
 	* @throws NullPointerException if the meeting or the date are null
+	* @throws IndexOutOfBoundsException if it is not possible to add more meetings
 	*/
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		return -1;
+		int newMeetingId = 0;
+		if(meetingsFull) {
+			throw new IndexOutOfBoundsException();
+		}
+		else {
+			newMeetingId = (getHighestMeetingId() + 1);
+			incrementHighestMeetingId();
+		}
+		meetings.add(new FutureMeetingImpl(newMeetingId, date, contacts));
+		return newMeetingId;
 	}
 	
 	/**
