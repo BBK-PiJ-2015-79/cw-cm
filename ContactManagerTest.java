@@ -47,7 +47,7 @@ public class ContactManagerTest {
 	public void addAMillionConacts() {
 		for(int i = 0; i < 1000000; i++) {
 			int newContactId = cMTest.addNewContact("Test dude", "Test");
-			System.out.println("Contact " + i + " id: " + newContactId);
+			//System.out.println("Contact " + i + " id: " + newContactId); //debug
 		}
 	}
 

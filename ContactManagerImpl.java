@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.Optional;
 import java.util.Random;
 import java.util.HashSet;
 import java.util.stream.*;
@@ -12,13 +13,44 @@ public class ContactManagerImpl implements ContactManager {
 	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
 	private Set<Contact> contacts;
 	private Set<Meeting> meetings;
+	private int highestContactId;
+	private boolean contactsFull;
 
 	public ContactManagerImpl() {
 		//
-		rand = new Random();
+		rand = new Random(); // remove if possible
 		contacts = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
+		
+		highestContactId = calculateHighestContactId();
+		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
 	}
+
+	private int calculateHighestContactId() {
+		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
+		if(maxContact.isPresent()) {
+			return maxContact.get().getId();
+		}
+		else {
+			return 0;
+		}
+	}
+
+	private int getHighestContactId() {
+		return highestContactId;
+	}
+
+	private int getNextContactId() {
+		return highestContactId + 1;
+	}
+
+	private void incrementHighestContactId() {
+		highestContactId++;
+		if(highestContactId == UPPER_BOUND) {
+			contactsFull = true;
+		}
+	}
+
 	/**
 	* Add a new meeting to be held in the future.
 	*
@@ -162,13 +194,17 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the name or the notes are null
 	*/
 	public int addNewContact(String name, String notes) {
+		int newContactId = 0;
 		if(name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException();
 		}
-		int newContactId;
-		do {
-			newContactId = (rand.nextInt(UPPER_BOUND) + 1);
-		} while(contactIdExists(newContactId));
+		if(contactsFull) {
+			throw new IndexOutOfBoundsException();
+		}
+		else {
+			newContactId = (getHighestContactId() + 1);
+			incrementHighestContactId();
+		}
 		contacts.add(new ContactImpl(newContactId, name, notes));
 		return newContactId;
 	}
