@@ -30,6 +30,25 @@ public class ContactManagerTest {
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, pastDate);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkThatIAEThrownWhenCreatingFutureMeetingWithUnknownContact() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(2590438, "Veronica Testingston"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkThatNPEThrownWhenCreatingFutureMeetingWithNullContacts() {
+		int newFMeetingId = cMTest.addFutureMeeting(null, futureDate);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkThatNPEThrownWhenCreatingFutureMeetingWithNullDate() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Bill Testman"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, null);
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
