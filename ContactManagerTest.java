@@ -55,6 +55,30 @@ public class ContactManagerTest {
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, null);
 	}
 
+	//Tests for getting PastMeetings
+	@Test
+	public void checkGetPastMeetingReturnsCorrectMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		PastMeeting pM = cMTest.getPastMeeting(2);
+		assertTrue(pM.getNotes().equals("What a great meeting!"));
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void checkGetPastMeetingThrowsISEIfMeetingIsInFuture() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		PastMeeting pM = cMTest.getPastMeeting(1); // a future meeting
+	}
+
+	//Tests for adding FutureMeetings
+
 	//Tests for getting Meetings
 
 	@Test
