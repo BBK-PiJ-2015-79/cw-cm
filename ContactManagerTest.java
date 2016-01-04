@@ -75,6 +75,41 @@ public class ContactManagerTest {
 		assertTrue(cMTest.getMeeting(newFMeetingId + 1) == null);
 	}
 
+	// Tests for adding new past meetings
+
+	@Test
+	public void checkAddingNewPastMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		assertTrue(((PastMeeting)cMTest.getMeeting(1)).getNotes().equals("What a great meeting!"));
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkNPEThrownWhenAddingPastMeetingWithNullContacts() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addNewPastMeeting(null, pastDate, "What a great meeting!");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkNPEThrownWhenAddingPastMeetingWithNullDate() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addNewPastMeeting(contactList, null, "What a great meeting!");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void checkNPEThrownWhenAddingPastMeetingWithNullNotes() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addNewPastMeeting(contactList, pastDate, null);
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
