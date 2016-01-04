@@ -11,7 +11,7 @@ import java.util.stream.*;
 public class ContactManagerImpl implements ContactManager {
 	
 	private final int UPPER_BOUND = Integer.MAX_VALUE; // used for ids minus one to prevent overflow
-	private Set<Contact> contacts;
+	private Set<Contact> contactList;
 	private Set<Meeting> meetings;
 	
 	private int highestContactId;
@@ -21,7 +21,7 @@ public class ContactManagerImpl implements ContactManager {
 	private boolean meetingsFull;
 
 	public ContactManagerImpl() {
-		contacts = new HashSet<Contact>();
+		contactList = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
 		highestContactId = calculateHighestContactId();
 		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
@@ -31,7 +31,7 @@ public class ContactManagerImpl implements ContactManager {
 
 	//Helper methods for adding new Contacts
 	private int calculateHighestContactId() {
-		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
+		Optional<Contact> maxContact = contactList.stream().max((e1, e2) -> e1.getId() - e2.getId());
 		if(maxContact.isPresent()) {
 			return maxContact.get().getId();
 		}
@@ -260,7 +260,7 @@ public class ContactManagerImpl implements ContactManager {
 			newContactId = (getHighestContactId() + 1);
 			incrementHighestContactId();
 		}
-		contacts.add(new ContactImpl(newContactId, name, notes));
+		contactList.add(new ContactImpl(newContactId, name, notes));
 		return newContactId;
 	}
 
@@ -288,7 +288,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(name == null) {
 			throw new NullPointerException();
 		}
-		Set<Contact> returnSet = contacts.stream().filter(e -> {
+		Set<Contact> returnSet = contactList.stream().filter(e -> {
 			//check whether name contains substring //debug
 			//boolean returnBool = e.getName().matches(".*" + name + ".*");
 			//if(returnBool) {
@@ -316,7 +316,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		//List<Integer> idList = Arrays.asList(ids); //debug
-		Set<Contact> returnSet = contacts.stream().filter(e -> {
+		Set<Contact> returnSet = contactList.stream().filter(e -> {
 			boolean inContacts = false;
 			for(int i=0; i < ids.length; i++) {
 				if(ids[i] == e.getId()) {
