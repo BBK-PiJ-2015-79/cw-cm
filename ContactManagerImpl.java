@@ -210,8 +210,12 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if any of the arguments is null
 	*/
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
 		if(contacts == null || date == null || text == null) {
 			throw new NullPointerException();
+		}
+		if(contacts.isEmpty() || (maxContact.isPresent() && maxContact.get().getId() > getHighestContactId())) {
+			throw new IllegalArgumentException();
 		}
 		return;
 	}
