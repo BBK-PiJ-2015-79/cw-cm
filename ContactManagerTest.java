@@ -66,6 +66,14 @@ public class ContactManagerTest {
 		assertFalse(cMTest.getMeeting(newFMeetingId) == null);
 	}
 
+	public void checkThatGetMeetingReturnsNullForUnknownMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+		assertTrue(cMTest.getMeeting(newFMeetingId + 1) == null);
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
