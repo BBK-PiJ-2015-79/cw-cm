@@ -19,7 +19,16 @@ public class ContactManagerTest {
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
 		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		System.out.println("Adding, ID is: " + newContactId);
 		assertTrue(newContactId > 0);
+	}
+
+	@Test
+	public void checkGetContactsWithSingleId() {
+		int newContactId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		System.out.println("Retrieving, ID is: " + newContactId);
+		Set<Contact> testContactSet = cMTest.getContacts(newContactId);
+		assertEquals(1, testContactSet.size());
 	}
 
 }

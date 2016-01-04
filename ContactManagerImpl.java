@@ -1,12 +1,23 @@
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.Random;
+import java.util.HashSet;
+import java.util.stream.*;
 /**
 * A class to manage your contacts and meetings.
 */
 public class ContactManagerImpl implements ContactManager {
+	private Random rand; // used to generate ids.
+	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
+	private Set<Contact> contacts;
+	private Set<Meeting> meetings;
+
 	public ContactManagerImpl() {
 		//
+		rand = new Random();
+		contacts = new HashSet<Contact>();
+		meetings = new HashSet<Meeting>();
 	}
 	/**
 	* Add a new meeting to be held in the future.
@@ -151,7 +162,19 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the name or the notes are null
 	*/
 	public int addNewContact(String name, String notes) {
-		return -1;
+		int newContactId;
+		do {
+			newContactId = (rand.nextInt(UPPER_BOUND) + 1);
+		} while(contactIdExists(newContactId));
+		contacts.add(new ContactImpl(newContactId, name, notes));
+		return newContactId;
+	}
+
+	private boolean contactIdExists(int someId) {
+		Stream contactStream = contacts.stream().filter(e -> e.getId() == someId);
+		long numMatchingIds = contactStream.count();
+		System.out.println(numMatchingIds);
+		return (numMatchingIds > 0L);
 	}
 	
 	/**
