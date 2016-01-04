@@ -69,6 +69,18 @@ public class ContactManagerTest {
 		Set<Contact> testContactSet = cMTest.getContacts(idArray);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkGetContactsIdThrowsIAEWithUnknownContact() {
+		int[] idArray = new int[0];
+		int[] contactIdArray = new int[3];
+		contactIdArray[0] = cMTest.addNewContact("Jimmy Tester", "This guy is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[0]); //debug
+		contactIdArray[1] = cMTest.addNewContact("Tracey Testington", "This lady is a test");
+		//System.out.println("Retrieving, ID is: " + contactIdArray[1]); //debug
+		contactIdArray[2] = -1; //non-existant id (can't ever be less than 1)
+		Set<Contact> testContactSet = cMTest.getContacts(contactIdArray);
+	}
+
 	// Tests for getting contacts with names
 
 	@Test
