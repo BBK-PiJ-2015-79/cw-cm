@@ -10,22 +10,24 @@ import java.util.stream.*;
 */
 public class ContactManagerImpl implements ContactManager {
 	
-	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
+	private final int UPPER_BOUND = Integer.MAX_VALUE; // used for ids minus one to prevent overflow
 	private Set<Contact> contacts;
 	private Set<Meeting> meetings;
+	
 	private int highestContactId;
 	private boolean contactsFull;
 
+	private int highestMeetingId;
+	private boolean meetingsFull;
+
 	public ContactManagerImpl() {
-		//
-		
 		contacts = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
-		
 		highestContactId = calculateHighestContactId();
 		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
 	}
 
+	//Helper methods for adding new Contacts
 	private int calculateHighestContactId() {
 		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
 		if(maxContact.isPresent()) {
@@ -40,14 +42,32 @@ public class ContactManagerImpl implements ContactManager {
 		return highestContactId;
 	}
 
-	private int getNextContactId() {
-		return highestContactId + 1;
-	}
-
 	private void incrementHighestContactId() {
 		highestContactId++;
 		if(highestContactId == UPPER_BOUND) {
 			contactsFull = true;
+		}
+	}
+
+	//Helper functions for adding new Meetings
+	private int calculateHighestMeetingId() {
+		Optional<Meeting> maxMeeting = meetings.stream().max((e1, e2) -> e1.getId() - e2.getId());
+		if(maxMeeting.isPresent()) {
+			return maxMeeting.get().getId();
+		}
+		else {
+			return 0;
+		}
+	}
+
+	private int getHighestMeetingId() {
+		return highestMeetingId;
+	}
+
+	private void incrementHighestMeetingId() {
+		highestMeetingId++;
+		if(highestMeetingId == UPPER_BOUND) {
+			meetingsFull = true;
 		}
 	}
 

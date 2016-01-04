@@ -14,6 +14,14 @@ public class ContactManagerTest {
 		pastDate = new GregorianCalendar(1979, 07, 23);
 
 	}
+	//Tests for adding new FutureMeetings
+	@Test
+	public void checkAddingNewFutureMeetingReturnsIdGreaterThanZero() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Bill Testman"));
+		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+		assertTrue(newFMeetingId > 0);
+	}
 
 	// Tests for adding contacts
 	@Test
