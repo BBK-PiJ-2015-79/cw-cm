@@ -2,14 +2,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
-import java.util.Random;
+
 import java.util.HashSet;
 import java.util.stream.*;
 /**
 * A class to manage your contacts and meetings.
 */
 public class ContactManagerImpl implements ContactManager {
-	private Random rand; // used to generate ids.
+	
 	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
 	private Set<Contact> contacts;
 	private Set<Meeting> meetings;
@@ -18,7 +18,7 @@ public class ContactManagerImpl implements ContactManager {
 
 	public ContactManagerImpl() {
 		//
-		rand = new Random(); // remove if possible
+		
 		contacts = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
 		
@@ -192,6 +192,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @return the ID for the new contact
 	* @throws IllegalArgumentException if the name or the notes are empty strings
 	* @throws NullPointerException if the name or the notes are null
+	* @throws IndexOutOfBoundsException if no more contacts can be added
 	*/
 	public int addNewContact(String name, String notes) {
 		int newContactId = 0;
@@ -209,6 +210,7 @@ public class ContactManagerImpl implements ContactManager {
 		return newContactId;
 	}
 
+	/* - remove, no longer needed after refactoring
 	// Private method to check whether a contact exists with the specified id
 	private boolean contactIdExists(int someId) {
 		Stream contactStream = contacts.stream().filter(e -> e.getId() == someId);
@@ -216,6 +218,7 @@ public class ContactManagerImpl implements ContactManager {
 		//System.out.println(numMatchingIds); //debug
 		return (numMatchingIds > 0L);
 	}
+	*/
 	
 	/**
 	* Returns a list with the contacts whose name contains that string.
@@ -255,7 +258,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(ids == null) {
 			throw new NullPointerException();
 		}
-		else if(ids.length == 0) {
+		if(ids.length == 0) {
 			throw new IllegalArgumentException();
 		}
 		//List<Integer> idList = Arrays.asList(ids); //debug
