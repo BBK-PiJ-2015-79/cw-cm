@@ -2,19 +2,32 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 /**
+* An implementation of the ContactManager interface.
+*
 * A class to manage your contacts and meetings.
+*
+* @author Chris Grocott
 */
 public class ContactManagerImpl implements ContactManager {
 	private Random rand;
-	private Set<Contact> contacts;
-	private Set<Meeting>  meetings;
+	private final int UPPER_BOUND = Integer.MAX_VALUE - 1; // used for ids minus one to prevent overflow
+	private Map<Integer, Meeting> meetings;
+	private Set<Contact> contactList;
 
 	public ContactManagerImpl() {
+		//placeholder constructor for now
 		rand = new Random();
-		contacts = new Set<Contact>();
-		meetings = new Set<Meeting>();
-		private final int UPPER_BOUND = Integer.MAX_VALUE - 1
+		meetings = new HashMap<Integer, Meeting>();
+		contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Bill Testman")); // hard code for testing
+		for(int i = 2; i <= 100; i++) {
+			contactList.add(new ContactImpl(i, "Test"));
+		}
 	}
 	/**
 	* Add a new meeting to be held in the future.
@@ -29,17 +42,48 @@ public class ContactManagerImpl implements ContactManager {
 	* in the past, of if any contact is unknown / non-existent.
 	* @throws NullPointerException if the meeting or the date are null
 	*/
+	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		int candidateId = (rand.nextInt(UPPER_BOUND) + 1);
-		idFound();
-		return -1;
-	}
-	
-	private boolean idFound(int id, Collection someCollection) {
-		//Stream
-		return true;
+		//System.out.println("Are all contacts known? " + allContactsKnown(contacts)); //debug
+		if(contacts == null || date == null) { //included even though this seems to happen implicitly //cleanup
+			throw new NullPointerException();
+		}
+		if(!(Calendar.getInstance().compareTo(date) < 0) || !allContactsKnown(contacts)) {
+			//System.out.println(date.get(date.YEAR)); //debug
+			throw new IllegalArgumentException();
+		}
+		int candidateId;
+		do {
+			candidateId = rand.nextInt(UPPER_BOUND) + 1; // add one to make sure you never get zero
+		} while (meetings.containsKey(new Integer(candidateId)));
+		//System.out.println("Candidate ID is: " + candidateId); //debug
+		meetings.put(new Integer(candidateId), new FutureMeetingImpl(candidateId, date, contacts));
+		return candidateId;
 	}
 
+	private boolean allContactsKnown(Set<Contact> someContacts) {
+		boolean returnBool = true;
+		for(Contact c : someContacts) {
+			//
+			if(!contactKnown(c)) {
+				returnBool = false;
+				break;
+			}
+		}
+		return returnBool;
+	}
+
+	private boolean contactKnown(Contact someContact) {
+		boolean returnBool = false;
+		for(Contact c: contactList) {
+			if(someContact.equals(c)) { //this relies on my own implementation of Contact. I'm not happy about this.
+				returnBool = true;
+				break;
+			}
+		}
+		return returnBool;
+	}
+	
 	/**
 	* Returns the PAST meeting with the requested ID, or null if it there is none.
 	*
@@ -50,6 +94,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalStateException if there is a meeting with that ID happening
 	* in the future
 	*/
+	@Override
 	public PastMeeting getPastMeeting(int id) {
 		return null;
 	}
@@ -62,6 +107,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if there is a meeting with that ID happening
 	* in the past
 	*/
+	@Override
 	public FutureMeeting getFutureMeeting(int id) {
 		return null;
 	}
@@ -72,6 +118,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @param id the ID for the meeting
 	* @return the meeting with the requested ID, or null if it there is none.
 	*/
+	@Override
 	public Meeting getMeeting(int id) {
 		return null;
 	}
@@ -88,6 +135,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if the contact does not exist
 	* @throws NullPointerException if the contact is null
 	*/
+	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
 		return null;
 	}
@@ -104,6 +152,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @return the list of meetings
 	* @throws NullPointerException if the date are null
 	*/
+	@Override
 	public List<Meeting> getMeetingListOn(Calendar date) {
 		return null;
 	}
@@ -120,6 +169,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if the contact does not exist
 	* @throws NullPointerException if the contact is null
 	*/
+	@Override
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
 		return null;
 	}
@@ -134,6 +184,7 @@ public class ContactManagerImpl implements ContactManager {
 	*		  empty, or any of the contacts does not exist
 	* @throws NullPointerException if any of the arguments is null
 	*/
+	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		return;
 	}
@@ -152,6 +203,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalStateException if the meeting is set for a date in the future
 	* @throws NullPointerException if the notes are null
 	*/
+	@Override
 	public PastMeeting addMeetingNotes(int id, String text) {
 		return null;
 	}
@@ -165,8 +217,9 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if the name or the notes are empty strings
 	* @throws NullPointerException if the name or the notes are null
 	*/
+	@Override
 	public int addNewContact(String name, String notes) {
-		return -1;
+		return 0;
 	}
 	
 	/**
@@ -179,6 +232,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @return a list with the contacts whose name contains that string.
 	* @throws NullPointerException if the parameter is null
 	*/
+	@Override
 	public Set<Contact> getContacts(String name) {
 		return null;
 	}
@@ -192,6 +246,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if no IDs are provided or if
 	* any of the provided IDs does not correspond to a real contact
 	*/
+	@Override
 	public Set<Contact> getContacts(int... ids) {
 		return null;
 	}
@@ -202,6 +257,7 @@ public class ContactManagerImpl implements ContactManager {
 	* This method must be executed when the program is
 	* closed and when/if the user requests it.
 	*/
+	@Override
 	public void flush() {
 		return;
 	}
