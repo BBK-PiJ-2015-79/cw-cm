@@ -110,6 +110,19 @@ public class ContactManagerTest {
 		cMTest.addNewPastMeeting(contactList, pastDate, null);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIAEThrownWhenAddingPastMeetingWithEmptyContacts() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		cMTest.addNewPastMeeting(contactList, pastDate, "Awesome meeting");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIAEThrownWhenAddingPastMeetingWithUnknownContacts() {
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(999999, "Jimmy Test")); //unknown
+		cMTest.addNewPastMeeting(contactList, pastDate, "Awesome meeting");
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
