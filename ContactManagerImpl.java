@@ -162,6 +162,9 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the name or the notes are null
 	*/
 	public int addNewContact(String name, String notes) {
+		if(name.equals("") || notes.equals("")) {
+			throw new IllegalArgumentException();
+		}
 		int newContactId;
 		do {
 			newContactId = (rand.nextInt(UPPER_BOUND) + 1);
