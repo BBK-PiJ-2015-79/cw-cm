@@ -33,6 +33,16 @@ public class ContactManagerTest {
 		int newContactId = cMTest.addNewContact("Jimmy Test", null);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIAEThrownWhenAddingContactWithEmptyName() {
+		int newContactId = cMTest.addNewContact("", "This guy is a test");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIAEThrownWhenAddingContactWithEmptyNotes() {
+		int newContactId = cMTest.addNewContact("Jimmy Test", "");
+	}
+
 	// Tests for getting contacts with ids
 
 	@Test
