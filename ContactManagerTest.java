@@ -78,7 +78,7 @@ public class ContactManagerTest {
 	}
 
 	@Test
-	public void checkNullReturnedForNonExistantMeeting() {
+	public void checkPMNullReturnedForNonExistantMeeting() {
 		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
 		contactList.add(new ContactImpl(1, "Jimmy Test"));
@@ -89,6 +89,38 @@ public class ContactManagerTest {
 	}
 
 	//Tests for adding FutureMeetings
+
+	@Test
+	public void checkGetFutureMeetingReturnsCorrectMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		FutureMeeting fM = cMTest.getFutureMeeting(1);
+		assertTrue(fM.getId() == 1);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void checkGetFutureMeetingThrowsIAEIfMeetingIsInPast() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		FutureMeeting fM = cMTest.getFutureMeeting(2); // a past meeting
+	}
+
+	@Test
+	public void checkFMNullReturnedForNonExistantMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		FutureMeeting fM = cMTest.getFutureMeeting(3); // a non-existant meeting
+		assertTrue(fM == null);
+	}
 
 	//Tests for getting Meetings
 
