@@ -2,7 +2,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.*;
 /**
@@ -239,7 +239,12 @@ public class ContactManagerImpl implements ContactManager {
 		if(!contactExistsInSet(contactList, contactId)) {
 			throw new IllegalArgumentException();
 		}
-		return null;
+		List<Meeting> meetingList = meetings.stream().filter(e -> (e instanceof PastMeeting && contactExistsInSet(e.getContacts(), contactId))).collect(Collectors.toList());
+		List<PastMeeting> returnList = new ArrayList<PastMeeting>();
+		for(Meeting m : meetingList) {
+			returnList.add((PastMeeting)m);
+		}
+		return returnList;
 	}
 	
 	/**
