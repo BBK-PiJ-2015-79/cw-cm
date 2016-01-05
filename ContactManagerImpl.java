@@ -216,6 +216,9 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the date are null
 	*/
 	public List<Meeting> getMeetingListOn(Calendar date) {
+		if(date == null) {
+			throw new NullPointerException();
+		}
 		return null;
 	}
 	
