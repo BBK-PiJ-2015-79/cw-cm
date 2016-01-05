@@ -142,6 +142,9 @@ public class ContactManagerTest {
 		assertTrue(cMTest.getMeeting(newFMeetingId + 1) == null);
 	}
 
+	//Tests for getting lists of meetings
+	
+	
 	// Tests for adding new past meetings
 
 	@Test
