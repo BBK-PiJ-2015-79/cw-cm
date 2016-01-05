@@ -185,10 +185,11 @@ public class ContactManagerImpl implements ContactManager {
 			throw new NullPointerException();
 		}
 		int contactId = contact.getId();
-		Optional<Contact> internalContact = contactList.stream().filter(e -> e.getId() == contactId).findFirst();
-		if(!internalContact.isPresent()) {
+		Optional<Contact> internalContactOptional = contactList.stream().filter(e -> e.getId() == contactId).findFirst();
+		if(!internalContactOptional.isPresent()) {
 			throw new IllegalArgumentException();
 		}
+		Contact internalContact = internalContactOptional.get();
 		return null;
 	}
 	

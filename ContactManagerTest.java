@@ -153,6 +153,21 @@ public class ContactManagerTest {
 	public void checkGetFutureMeetingListThrowsNPEIfContactDoesIsNull() {
 		cMTest.getFutureMeetingList(null);
 	}
+
+	@Test
+	public void checkCorrectFutureMeetingsReturned() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Contact lookupContact = new ContactImpl(newId, "Jimmy Test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(lookupContact);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
+		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
+		List<Meeting> fMeetings = cMTest.getFutureMeetingList(lookupContact);
+		assertEquals(3, fMeetings.size());
+	}
 	
 	// Tests for adding new past meetings
 
