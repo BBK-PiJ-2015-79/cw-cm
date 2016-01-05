@@ -235,6 +235,10 @@ public class ContactManagerImpl implements ContactManager {
 		if(contact == null) {
 			throw new NullPointerException();
 		}
+		int contactId = contact.getId();
+		if(!contactExistsInSet(contactList, contactId)) {
+			throw new IllegalArgumentException();
+		}
 		return null;
 	}
 	
