@@ -143,7 +143,16 @@ public class ContactManagerTest {
 	}
 
 	//Tests for getting lists of meetings
+	@Test(expected = IllegalArgumentException.class)
+	public void checkGetFutureMeetingListThrowsIAEIfContactDoesNotExist() {
+		Contact nonExistantContact = new ContactImpl(999999, "Emma LeTest");
+		cMTest.getFutureMeetingList(nonExistantContact);
+	}
 	
+	@Test(expected = NullPointerException.class)
+	public void checkGetFutureMeetingListThrowsNPEIfContactDoesIsNull() {
+		cMTest.getFutureMeetingList(null);
+	}
 	
 	// Tests for adding new past meetings
 
