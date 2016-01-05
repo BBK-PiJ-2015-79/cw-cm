@@ -265,6 +265,10 @@ public class ContactManagerImpl implements ContactManager {
 		if(text == null) {
 			throw new NullPointerException();
 		}
+		Meeting meetingForNotes = getMeeting(id);
+		if(meetingForNotes == null) {
+			throw new IllegalArgumentException();
+		}
 		return null;
 	}
 	
