@@ -142,7 +142,7 @@ public class ContactManagerTest {
 		assertTrue(cMTest.getMeeting(newFMeetingId + 1) == null);
 	}
 
-	//Tests for getting lists of meetings
+	//Tests for getting lists of future meetings
 	@Test(expected = IllegalArgumentException.class)
 	public void checkGetFutureMeetingListThrowsIAEIfContactDoesNotExist() {
 		Contact nonExistantContact = new ContactImpl(999999, "Emma LeTest");
@@ -172,6 +172,41 @@ public class ContactManagerTest {
 		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
 		List<Meeting> fMeetings = cMTest.getFutureMeetingList(lookupContact);
 		assertEquals(3, fMeetings.size());
+	}
+
+	//tests for getting lists of meetings on a given date
+
+	//tests for getting lists of past meetings
+	@Test(expected = IllegalArgumentException.class)
+	public void checkGetPastMeetingListThrowsIAEIfContactDoesNotExist() {
+		Contact nonExistantContact = new ContactImpl(999999, "Emma LeTest");
+		cMTest.getPastMeetingListFor(nonExistantContact);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void checkGetPastMeetingListThrowsNPEIfContactDoesIsNull() {
+		cMTest.getPastMeetingListFor(null);
+	}
+
+	@Test
+	public void checkCorrectPastMeetingsReturned() {
+		int lookupId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Contact lookupContact = new ContactImpl(lookupId, "Jimmy Test");
+		int bogusId = cMTest.addNewContact("Jemima Test", "This lady is a test");
+		Contact bogusContact = new ContactImpl(bogusId, "Jemima test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		Set<Contact> bogusContactList = new HashSet<Contact>();
+		contactList.add(lookupContact);
+		bogusContactList.add(bogusContact);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(bogusContactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
+		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
+		cMTest.addNewPastMeeting(bogusContactList, pastDate, "Some notes");
+		List<PastMeeting> pMeetings = cMTest.getPastMeetingListFor(lookupContact);
+		assertEquals(2, pMeetings.size());
 	}
 	
 	// Tests for adding new past meetings
