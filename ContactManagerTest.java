@@ -77,6 +77,17 @@ public class ContactManagerTest {
 		PastMeeting pM = cMTest.getPastMeeting(1); // a future meeting
 	}
 
+	@Test
+	public void checkNullReturnedForNonExistantMeeting() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		PastMeeting pM = cMTest.getPastMeeting(3); // a non-existant meeting
+		assertTrue(pM == null);
+	}
+
 	//Tests for adding FutureMeetings
 
 	//Tests for getting Meetings
