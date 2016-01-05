@@ -181,6 +181,14 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the contact is null
 	*/
 	public List<Meeting> getFutureMeetingList(Contact contact) {
+		if(contact == null) {
+			throw new NullPointerException();
+		}
+		int contactId = contact.getId();
+		Optional<Contact> internalContact = contactList.stream().filter(e -> e.getId() == contactId).findFirst();
+		if(!internalContact.isPresent()) {
+			throw new IllegalArgumentException();
+		}
 		return null;
 	}
 	
