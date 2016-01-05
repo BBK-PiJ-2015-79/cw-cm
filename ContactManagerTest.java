@@ -150,7 +150,7 @@ public class ContactManagerTest {
 	}
 	
 	@Test(expected = NullPointerException.class)
-	public void checkGetFutureMeetingListThrowsNPEIfContactDoesIsNull() {
+	public void checkGetFutureMeetingListThrowsNPEIfContactIsNull() {
 		cMTest.getFutureMeetingList(null);
 	}
 
@@ -184,7 +184,7 @@ public class ContactManagerTest {
 	}
 	
 	@Test(expected = NullPointerException.class)
-	public void checkGetPastMeetingListThrowsNPEIfContactDoesIsNull() {
+	public void checkGetPastMeetingListThrowsNPEIfContactIsNull() {
 		cMTest.getPastMeetingListFor(null);
 	}
 
