@@ -119,6 +119,10 @@ public class ContactManagerImpl implements ContactManager {
 	* in the future
 	*/
 	public PastMeeting getPastMeeting(int id) {
+		Meeting candidateMeeting = getMeeting(id);
+		if(candidateMeeting instanceof FutureMeeting) {
+			throw new IllegalStateException();
+		}
 		return null;
 	}
 	
@@ -207,6 +211,7 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws IllegalArgumentException if the list of contacts is
 	*		  empty, or any of the contacts does not exist
 	* @throws NullPointerException if any of the arguments is null
+	* @throws IndexOutOfBoundsException if meetings list is full
 	*/
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		Optional<Contact> maxContact = contacts.stream().max((e1, e2) -> e1.getId() - e2.getId());
