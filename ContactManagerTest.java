@@ -175,8 +175,12 @@ public class ContactManagerTest {
 	}
 
 	//tests for getting lists of meetings on a given date
+	@Test(expected = NullPointerException.class)
+	public void checkThatGetMeetingListOnThrowsNPEFoeNullDate() {
+		cMTest.getMeetingListOn(null);
+	}
 
-	//tests for getting lists of past meetings
+	//tests for getting lists of past meetings with a contact
 	@Test(expected = IllegalArgumentException.class)
 	public void checkGetPastMeetingListThrowsIAEIfContactDoesNotExist() {
 		Contact nonExistantContact = new ContactImpl(999999, "Emma LeTest");
