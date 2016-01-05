@@ -140,7 +140,16 @@ public class ContactManagerImpl implements ContactManager {
 	* in the past
 	*/
 	public FutureMeeting getFutureMeeting(int id) {
-		return null;
+		Meeting candidateMeeting = getMeeting(id);
+		if(candidateMeeting == null) {
+			return null;
+		}
+		if(candidateMeeting instanceof PastMeeting) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			return (FutureMeeting)candidateMeeting;
+		}
 	}
 	
 	/**
