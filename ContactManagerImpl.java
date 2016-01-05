@@ -262,6 +262,9 @@ public class ContactManagerImpl implements ContactManager {
 	* @throws NullPointerException if the notes are null
 	*/
 	public PastMeeting addMeetingNotes(int id, String text) {
+		if(text == null) {
+			throw new NullPointerException();
+		}
 		return null;
 	}
 	
