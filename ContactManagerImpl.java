@@ -269,6 +269,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(meetingForNotes == null) {
 			throw new IllegalArgumentException();
 		}
+		if(Calendar.getInstance().compareTo(meetingForNotes.getDate()) < 0) {
+			throw new IllegalStateException();
+		}
 		return null;
 	}
 	
