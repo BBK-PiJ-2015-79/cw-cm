@@ -219,7 +219,16 @@ public class ContactManagerImpl implements ContactManager {
 		if(date == null) {
 			throw new NullPointerException();
 		}
-		return null;
+		List<Meeting> returnList = meetings.stream().filter(e -> sameDate(e.getDate(), date)).collect(Collectors.toList());
+		return returnList;
+	}
+
+	private boolean sameDate(Calendar date1, Calendar date2) {
+		//System.out.println(date1.get(Calendar.DAY_OF_MONTH) + " and " + date2.get(Calendar.DAY_OF_MONTH)); //debug
+		boolean sameDay = (date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH));
+		boolean sameMonth = (date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH));
+		boolean sameYear = (date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR));
+		return (sameDay && sameMonth && sameYear);
 	}
 	
 	/**
