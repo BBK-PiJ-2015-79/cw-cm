@@ -190,6 +190,25 @@ public class ContactManagerTest {
 		cMTest.addNewPastMeeting(contactList, pastDate, "Awesome meeting");
 	}
 
+	//Tests for adding meeting notes
+	@Test(expected = NullPointerException.class)
+	public void checkThatAddNotesNPEThrownWhenNotesAreNull() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		Calendar earlyFutureDate = new GregorianCalendar();
+		earlyFutureDate.roll(Calendar.MILLISECOND, 1000);
+		cMTest.addFutureMeeting(contactList, earlyFutureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		try {
+			Thread.sleep(1100);
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		cMTest.addMeetingNotes(1, null);
+	}
+
 	// Tests for adding contacts
 	@Test
 	public void checkAddingNewContactReturnsIdGreaterThanZero() {
