@@ -272,7 +272,23 @@ public class ContactManagerImpl implements ContactManager {
 		if(Calendar.getInstance().compareTo(meetingForNotes.getDate()) < 0) {
 			throw new IllegalStateException();
 		}
-		return null;
+		PastMeeting returnMeeting = replaceMeetingWithPastMeeting(meetingForNotes, text);
+		return returnMeeting;
+	}
+	
+	private PastMeeting replaceMeetingWithPastMeeting(Meeting someMeeting, String text) {
+		int meetingId = someMeeting.getId();
+		Calendar meetingDate = someMeeting.getDate();
+		Set<Contact> meetingContacts = someMeeting.getContacts();
+		String meetingNotes = "";
+		if(someMeeting instanceof PastMeeting) {
+			meetingNotes = ((PastMeeting)someMeeting).getNotes();
+		}
+		meetingNotes += text;
+		meetings.remove(someMeeting);
+		PastMeeting newPastMeeting = new PastMeetingImpl(meetingId, meetingDate, meetingContacts, meetingNotes);
+		meetings.add(newPastMeeting);
+		return newPastMeeting;
 	}
 	
 	/**
