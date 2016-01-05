@@ -156,13 +156,18 @@ public class ContactManagerTest {
 
 	@Test
 	public void checkCorrectFutureMeetingsReturned() {
-		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
-		Contact lookupContact = new ContactImpl(newId, "Jimmy Test");
+		int lookupId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Contact lookupContact = new ContactImpl(lookupId, "Jimmy Test");
+		int bogusId = cMTest.addNewContact("Jemima Test", "This lady is a test");
+		Contact bogusContact = new ContactImpl(bogusId, "Jemima test");
 		Set<Contact> contactList = new HashSet<Contact>();
+		Set<Contact> bogusContactList = new HashSet<Contact>();
 		contactList.add(lookupContact);
+		bogusContactList.add(bogusContact);
 		cMTest.addFutureMeeting(contactList, futureDate);
 		cMTest.addFutureMeeting(contactList, futureDate);
 		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(bogusContactList, futureDate);
 		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
 		cMTest.addNewPastMeeting(contactList, pastDate, "Some notes");
 		List<Meeting> fMeetings = cMTest.getFutureMeetingList(lookupContact);

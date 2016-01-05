@@ -190,7 +190,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		Contact internalContact = internalContactOptional.get();
-		//List<Meeting> returnList = meetings.stream().filter(e -> {
+		//List<Meeting> returnList = meetings.stream().filter(e -> { //debug
 		//	return ((e instanceof FutureMeeting) && (e.getContacts().contains(internalContact)));
 		//}).collect(Collectors.toList());
 		//List<Meeting> returnList = meetings.stream().filter(e -> true).collect(Collectors.toList());
