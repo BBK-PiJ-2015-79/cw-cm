@@ -120,10 +120,15 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	public PastMeeting getPastMeeting(int id) {
 		Meeting candidateMeeting = getMeeting(id);
-		if(candidateMeeting instanceof FutureMeeting) {
+		if(candidateMeeting == null) {
+			return null;
+		}
+		else if(candidateMeeting instanceof FutureMeeting) {
 			throw new IllegalStateException();
 		}
-		return null;
+		else {
+			return (PastMeeting)candidateMeeting;
+		}
 	}
 	
 	/**
