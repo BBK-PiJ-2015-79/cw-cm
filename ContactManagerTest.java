@@ -208,6 +208,26 @@ public class ContactManagerTest {
 		}
 		cMTest.addMeetingNotes(1, null);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkThatAddNotesIAEThrownWhenMeetingDoesNotExist() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		cMTest.addMeetingNotes(999999, "My favourite meeting ever"); // non-existant meeting
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void checkThatAddNotesISEThrownWhenMeetingInFuture() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		cMTest.addMeetingNotes(1, "My favourite meeting ever"); // meeting takes place in future
+	}
 
 	// Tests for adding contacts
 	@Test
