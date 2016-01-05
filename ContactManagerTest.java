@@ -228,6 +228,44 @@ public class ContactManagerTest {
 		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
 		cMTest.addMeetingNotes(1, "My favourite meeting ever"); // meeting takes place in future
 	}
+	
+	@Test
+	public void checkThatAddNotesAddToFutureMeetingWorks() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		GregorianCalendar earlyFutureDate = new GregorianCalendar();
+		earlyFutureDate.add(Calendar.MILLISECOND, 1000);
+		cMTest.addFutureMeeting(contactList, earlyFutureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		try {
+			Thread.sleep(1100);
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		PastMeeting pM = cMTest.addMeetingNotes(1, "This meeting sent me to sleep");
+		assertTrue(pM.getNotes().equals("This meeting sent me to sleep"));
+	}
+	
+	@Test
+	public void checkThatAddNotesAddToPastMeetingWorks() {
+		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(1, "Jimmy Test"));
+		GregorianCalendar earlyFutureDate = new GregorianCalendar();
+		earlyFutureDate.add(Calendar.MILLISECOND, 1000);
+		cMTest.addFutureMeeting(contactList, earlyFutureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
+		try {
+			Thread.sleep(1100);
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		PastMeeting pM = cMTest.addMeetingNotes(2, "I Loved Every Second.");
+		assertTrue(pM.getNotes().equals("What a great meeting!I Loved Every Second."));
+	}
 
 	// Tests for adding contacts
 	@Test
