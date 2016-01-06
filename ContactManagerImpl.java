@@ -494,6 +494,9 @@ public class ContactManagerImpl implements ContactManager {
 	        catch (ClassNotFoundException e) {
 	            e.printStackTrace();
 	        }
+	        catch (ClassCastException e) { // debug added to address unchecked cast warning, but doesn't work
+	        	e.printStackTrace();
+	        }
 
 			//System.out.println("After: " + contactsFromFile);
 	        try {
@@ -507,6 +510,7 @@ public class ContactManagerImpl implements ContactManager {
 				contactList = contactsFromFile;        	
 	        }
 	        if(meetingsFromFile != null) {
+	        	/* //debug
 	        	for(Meeting m : meetingsFromFile) {
 	        		if(m instanceof PastMeeting) {
 	        			meetingsForInit.add((PastMeeting)m);
@@ -522,6 +526,8 @@ public class ContactManagerImpl implements ContactManager {
 	        		}
 	        	}
 	        	meetings = meetingsForInit;
+	        	*/
+	        	meetings = meetingsFromFile;
 	        }
 		}
 

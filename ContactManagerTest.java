@@ -19,7 +19,7 @@ public class ContactManagerTest {
 				contactsFile.delete();
 			}
 		}
-		catch(Exception e) {
+		catch(Exception e) { //debug - find a better exception to catch...
 			e.printStackTrace();
 		}
 
@@ -37,6 +37,32 @@ public class ContactManagerTest {
 		contactList.add(new ContactImpl(1, "Jimmy Test"));
 		int newFMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
 		assertTrue(newFMeetingId > 0);
+	}
+
+	@Test
+	public void checkNewFutureMeetingIdsDontDuplicateAfterFlush() {
+		int contactId = cMTest.addNewContact("Jimmy Test", "Test");
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(contactId, "Jimmy Test"));
+
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+
+		List<Meeting> tempMeetingList = cMTest.getMeetingListOn(futureDate);
+
+		cMTest.flush();
+		cMTest = new ContactManagerImpl();
+
+		int newMeetingId = cMTest.addFutureMeeting(contactList, futureDate);
+		Optional<Meeting> opt = tempMeetingList.stream().filter(e -> e.getId() == newMeetingId).findFirst();
+
+		assertFalse(opt.isPresent());
+
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
