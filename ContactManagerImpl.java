@@ -15,10 +15,10 @@ public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
 	private Set<Meeting> meetings;
 	
-	private int highestContactId;
+	private int highestContactId; //debug
 	private boolean contactsFull;
 
-	private int highestMeetingId;
+	private int highestMeetingId; //debug
 	private boolean meetingsFull;
 
 	private static final String FILENAME = "contacts.txt";
@@ -26,11 +26,12 @@ public class ContactManagerImpl implements ContactManager {
 	public ContactManagerImpl() {
 		contactList = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
+		initialiseFromFile();
+
 		highestContactId = calculateHighestContactId();
 		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
 		highestMeetingId = calculateHighestMeetingId();
 		meetingsFull = (highestMeetingId < UPPER_BOUND) ? false : true;
-		initialiseFromFile();
 	}
 
 	//Helper methods for adding new Contacts
@@ -124,6 +125,7 @@ public class ContactManagerImpl implements ContactManager {
 	*/
 	public PastMeeting getPastMeeting(int id) {
 		Meeting candidateMeeting = getMeeting(id);
+		//System.out.println("Looking up " + id); //debug
 		if(candidateMeeting == null) {
 			return null;
 		}
@@ -481,6 +483,7 @@ public class ContactManagerImpl implements ContactManager {
 
 	        Set<Contact> contactsFromFile = null;
 	        Set<Meeting> meetingsFromFile = null;
+	        Set<Meeting> meetingsForInit = new HashSet<Meeting>();
 	        try {
 	            contactsFromFile = (Set<Contact>) oInStr.readObject();
 	            meetingsFromFile = (Set<Meeting>) oInStr.readObject();
@@ -504,7 +507,21 @@ public class ContactManagerImpl implements ContactManager {
 				contactList = contactsFromFile;        	
 	        }
 	        if(meetingsFromFile != null) {
-	        	meetings = meetingsFromFile;
+	        	for(Meeting m : meetingsFromFile) {
+	        		if(m instanceof PastMeeting) {
+	        			meetingsForInit.add((PastMeeting)m);
+	        			//System.out.println(m.getId() + " is a past meeting."); //debug
+	        		}
+	        		else if(m instanceof FutureMeeting) {
+	        			meetingsForInit.add((FutureMeeting)m);
+	        			// System.out.println(m.getId() + " is a future meeting."); //debug
+	        		}
+	        		else {
+	        			meetingsForInit.add(m);
+	        			//System.out.println(m.getId() + " os an unknown meeting."); //debug
+	        		}
+	        	}
+	        	meetings = meetingsForInit;
 	        }
 		}
 

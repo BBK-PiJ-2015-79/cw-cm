@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class ContactManagerTest {
-	private ContactManager cMTest;
+	private ContactManagerImpl cMTest; //debug
 	private Calendar futureDate;
 	private Calendar pastDate;
 
@@ -12,10 +12,6 @@ public class ContactManagerTest {
 
 	@Before
 	public void resetCMTest() {
-		cMTest = new ContactManagerImpl();
-		futureDate = new GregorianCalendar(2525, 01, 01);
-		pastDate = new GregorianCalendar(1979, 07, 23);
-
 		//remove the contacts fgile if it exists
 		File contactsFile = new File(FILENAME);
 		try {
@@ -26,6 +22,10 @@ public class ContactManagerTest {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+
+		cMTest = new ContactManagerImpl();
+		futureDate = new GregorianCalendar(2525, 01, 01);
+		pastDate = new GregorianCalendar(1979, 07, 23);
 
 	}
 	//Tests for adding new FutureMeetings
@@ -70,14 +70,18 @@ public class ContactManagerTest {
 	}
 
 	//Tests for getting PastMeetings
+	
 	@Test
 	public void checkGetPastMeetingReturnsCorrectMeeting() {
+		//resetCMTest();
+		//System.out.println("Before I start, there are " + cMTest.highestContactId + " contacts and " + cMTest.highestMeetingId + "meetings.");
 		int newId = cMTest.addNewContact("Jimmy Test", "This guy is a test");
 		Set<Contact> contactList = new HashSet<Contact>();
 		contactList.add(new ContactImpl(1, "Jimmy Test"));
 		cMTest.addFutureMeeting(contactList, futureDate);
 		cMTest.addNewPastMeeting(contactList, pastDate, "What a great meeting!");
 		PastMeeting pM = cMTest.getPastMeeting(2);
+		//System.out.println("Notes: " + pM.getNotes()); //debug
 		assertTrue(pM.getNotes().equals("What a great meeting!"));
 	}
 
@@ -507,6 +511,7 @@ public class ContactManagerTest {
 		Set<Contact> testContactSet = cMTest.getContacts(testName);
 	}
 
+	
 	//Tests for persistence, flush() etc.
 	@Test
 	public void checkThatContactsAreRestoredAfterFlush() {
@@ -529,8 +534,9 @@ public class ContactManagerTest {
 		Set<Contact> newContacts = cMTest.getContacts("");
 
 		assertEquals(4, newContacts.size());
+		//resetCMTest(); // why do I need this? Seems to affect other tests.
 	}
-
+	
 	@Test
 	public void checkThatMeetingsAreRestoredAfterFlush() {
 		cMTest.addNewContact("Alice Test", "This lady is a test");
@@ -544,6 +550,7 @@ public class ContactManagerTest {
 		cMTest.addFutureMeeting(contactList, futureDate);
 		cMTest.addFutureMeeting(contactList, futureDate);
 		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addNewPastMeeting(contactList, pastDate, "Ooh, a meeting");
 
 		cMTest.flush();
 
@@ -552,5 +559,7 @@ public class ContactManagerTest {
 		List<Meeting> newMeetings = cMTest.getMeetingListOn(futureDate);
 
 		assertEquals(3, newMeetings.size());
+		//resetCMTest();
 	}
+	
 }
