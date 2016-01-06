@@ -1,5 +1,6 @@
 import java.util.Calendar;
 import java.util.Set;
+import java.io.Serializable;
 /**
 * Implementation of the Meeting interface. A class to represent meetings
 *
@@ -7,7 +8,7 @@ import java.util.Set;
 *
 * @author Chris Grocott
 */
-public abstract class MeetingImpl implements Meeting {
+public abstract class MeetingImpl implements Meeting, Serializable {
 	private int id;
 	private Calendar date;
 	private Set<Contact> contacts;

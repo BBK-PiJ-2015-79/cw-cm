@@ -452,6 +452,7 @@ public class ContactManagerImpl implements ContactManager {
 
         try {
             oOutStr.writeObject(contactList);
+            oOutStr.writeObject(meetings);
         } 
         catch (IOException ex) {
             ex.printStackTrace();
@@ -479,8 +480,10 @@ public class ContactManagerImpl implements ContactManager {
 	        }
 
 	        Set<Contact> contactsFromFile = null;
+	        Set<Meeting> meetingsFromFile = null;
 	        try {
 	            contactsFromFile = (Set<Contact>) oInStr.readObject();
+	            meetingsFromFile = (Set<Meeting>) oInStr.readObject();
 	        } 
 	        catch (IOException e) {
 	            e.printStackTrace();
@@ -499,6 +502,9 @@ public class ContactManagerImpl implements ContactManager {
 
 	        if(contactsFromFile != null) {
 				contactList = contactsFromFile;        	
+	        }
+	        if(meetingsFromFile != null) {
+	        	meetings = meetingsFromFile;
 	        }
 		}
 
