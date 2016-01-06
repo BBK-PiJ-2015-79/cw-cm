@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.*;
+import java.io.*;
 /**
 * A class to manage your contacts and meetings.
 */
@@ -29,6 +30,7 @@ public class ContactManagerImpl implements ContactManager {
 		contactsFull = (highestContactId < UPPER_BOUND) ? false : true;
 		highestMeetingId = calculateHighestMeetingId();
 		meetingsFull = (highestMeetingId < UPPER_BOUND) ? false : true;
+		initialiseFromFile();
 	}
 
 	//Helper methods for adding new Contacts
@@ -436,7 +438,71 @@ public class ContactManagerImpl implements ContactManager {
 	* closed and when/if the user requests it.
 	*/
 	public void flush() {
-		File writeOutFile = new File(FILENAME);
+		
+		ObjectOutputStream oOutStr = null;
+        try {
+            oOutStr = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(FILENAME)));
+        } 
+        catch (FileNotFoundException e) {
+            System.err.println("encoding... " + e);
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            oOutStr.writeObject(contactList);
+        } 
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            oOutStr.close();
+        } 
+        catch (IOException ex2) {
+            ex2.printStackTrace();
+        }
+
 		return;
+	}
+
+	private void initialiseFromFile() {
+		ObjectInputStream oInStr = null;
+		File contactsFile = new File("contacts.txt"); // check
+		if(contactsFile.exists()) {
+	        try {
+	            oInStr = new ObjectInputStream(new BufferedInputStream(new FileInputStream(FILENAME)));
+	        } 
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        Set<Contact> contactsFromFile = null;
+	        try {
+	            contactsFromFile = (Set<Contact>) oInStr.readObject();
+	        } 
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        } 
+	        catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	        }
+
+	        System.out.println("After: " + contactsFromFile);
+	        try {
+	            oInStr.close();
+	        } 
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        if(contactsFromFile != null) {
+				contactList = contactsFromFile;        	
+	        }
+		}
+
+
+
 	}
 }
