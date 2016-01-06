@@ -531,4 +531,26 @@ public class ContactManagerTest {
 		assertEquals(4, newContacts.size());
 	}
 
+	@Test
+	public void checkThatMeetingsAreRestoredAfterFlush() {
+		cMTest.addNewContact("Alice Test", "This lady is a test");
+		cMTest.addNewContact("Bob Test", "This guy is a test");
+		cMTest.addNewContact("Charles Test", "This guy is a test");
+		cMTest.addNewContact("Diana Test", "This lady is a test");
+
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(3, "Charles Test"));
+
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+
+		cMTest.flush();
+
+		cMTest = new ContactManagerImpl();
+
+		List<Meeting> newMeetings = cMTest.getMeetingListOn(futureDate);
+
+		assertEquals(3, newMeetings.size());
+	}
 }

@@ -489,7 +489,7 @@ public class ContactManagerImpl implements ContactManager {
 	            e.printStackTrace();
 	        }
 
-	        System.out.println("After: " + contactsFromFile);
+			//System.out.println("After: " + contactsFromFile);
 	        try {
 	            oInStr.close();
 	        } 
