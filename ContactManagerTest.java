@@ -1,17 +1,31 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
+import java.io.*;
 
 public class ContactManagerTest {
 	private ContactManager cMTest;
 	private Calendar futureDate;
 	private Calendar pastDate;
 
+	private static final String FILENAME = "contacts.txt";
+
 	@Before
 	public void resetCMTest() {
 		cMTest = new ContactManagerImpl();
 		futureDate = new GregorianCalendar(2525, 01, 01);
 		pastDate = new GregorianCalendar(1979, 07, 23);
+
+		//remove the contacts fgile if it exists
+		File contactsFile = new File(FILENAME);
+		try {
+			if(contactsFile.exists()) {
+				contactsFile.delete();
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 	//Tests for adding new FutureMeetings
@@ -491,6 +505,30 @@ public class ContactManagerTest {
 		contactIdArray[2] = cMTest.addNewContact("Johnny Danger", "This guy is dangerous");
 		//System.out.println("Retrieving, ID is: " + contactIdArray[2]); //debug
 		Set<Contact> testContactSet = cMTest.getContacts(testName);
+	}
+
+	//Tests for persistence, flush() etc.
+	@Test
+	public void checkThatContactsAreRestoredAfterFlush() {
+		cMTest.addNewContact("Alice Test", "This lady is a test");
+		cMTest.addNewContact("Bob Test", "This guy is a test");
+		cMTest.addNewContact("Charles Test", "This guy is a test");
+		cMTest.addNewContact("Diana Test", "This lady is a test");
+
+		Set<Contact> contactList = new HashSet<Contact>();
+		contactList.add(new ContactImpl(3, "Charles Test"));
+
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+		cMTest.addFutureMeeting(contactList, futureDate);
+
+		cMTest.flush();
+
+		cMTest = new ContactManagerImpl();
+
+		Set<Contact> newContacts = cMTest.getContacts("");
+
+		assertEquals(4, newContacts.size());
 	}
 
 }
