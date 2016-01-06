@@ -1,3 +1,4 @@
+import java.io.Serializable;
 /**
 * A class implementing the Contact interface.
 *
@@ -9,7 +10,7 @@
 *
 * @author Chris Grocott
 */
-public class ContactImpl implements Contact {
+public class ContactImpl implements Contact, Serializable {
 	private int id;
 	private String name;
 	private String contactNotes;

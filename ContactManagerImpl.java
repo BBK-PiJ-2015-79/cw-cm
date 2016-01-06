@@ -20,6 +20,8 @@ public class ContactManagerImpl implements ContactManager {
 	private int highestMeetingId;
 	private boolean meetingsFull;
 
+	private static final String FILENAME = "contacts.txt";
+
 	public ContactManagerImpl() {
 		contactList = new HashSet<Contact>();
 		meetings = new HashSet<Meeting>();
@@ -434,6 +436,7 @@ public class ContactManagerImpl implements ContactManager {
 	* closed and when/if the user requests it.
 	*/
 	public void flush() {
+		File writeOutFile = new File(FILENAME);
 		return;
 	}
 }
